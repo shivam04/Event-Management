@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pagedown',
     'rest_framework',
     'search',
+    'accounts',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MIDDLEWARE_CLASSES = [
