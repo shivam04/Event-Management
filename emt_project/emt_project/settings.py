@@ -25,7 +25,7 @@ SECRET_KEY = 'kmr04e84j7w_vfo+au%q(bl$glmgyc0gs70)cnbtzfu@%liiuk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.68.28','127.0.0.1','localhost']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'search',
     'accounts',
+    'venues',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MIDDLEWARE_CLASSES = [
