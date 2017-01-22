@@ -14,13 +14,17 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.conf import settings
 from django.conf.urls import include,url
 from django.contrib import admin
-from django.conf import settings
-from django.conf.urls.static import static
 
+from django.conf.urls.static import static
+#from venues.views import list_view,CityListApiView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    #url(r'^venue/',list_view),
+    url(r'^api/venues/',include("venues.api.urls",namespace='venue-api')),
+    #url(r'^api/venue/',CityListApiView.as_view())
 ]
 
 if settings.DEBUG:

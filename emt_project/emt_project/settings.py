@@ -62,7 +62,7 @@ ROOT_URLCONF = 'emt_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,3 +138,10 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES':(
+#         'rest_framework.permissions.IsAdminUser',
+#         #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+#     ),
+
+# }
