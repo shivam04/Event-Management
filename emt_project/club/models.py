@@ -4,15 +4,25 @@ from django.utils.text import slugify
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from venues.models import Venues,City,Locality
 # Create your models here.
 class Club(models.Model):
 	club_name = models.CharField(max_length=50)
-	# city_slug = models.SlugField(unique=True,default=None)
+	club_slug = models.SlugField(unique=True,default=None)
 	def __unicode__(self):
 		return self.club_name			
 
 	def __str__(self):
 		return self.club_name
+
+	def create_venue(self):
+		print self.id
+		content_type = ContentType.objects.get_for_model(self.__class__)
+		city = City.objects.all().first()
+		locality = Locality.objects.all().first()
+		b = Venues(venue_name=self.club_name,content_type=content_type,object_id=self.id,venue_city=city,venue_locality=locality)
+		b.save()
+		return b
 
 	# def children(self):
 	# 	return Locality.objects.filter(service_name=self.id)
@@ -53,16 +63,16 @@ class Service(models.Model):
 # 	lon = models.CharField(max_length=50)
 # 	let = models.CharField(max_length=50)
 
-# def create_slug(instance ,new_slug=None):
-# 	slug = slugify(instance.locality_name)
-# 	if new_slug is not None:
-# 		slug = new_slug
-# 	qs = Locality.objects.filter(locality_slug=slug).order_by("-id")
-# 	exists = qs.exists()
-# 	if exists:
-# 		new_slug = slug+"-"+str(qs.first().id)
-# 		return create_slug(instance, new_slug=new_slug)
-# 	return slug
+def create_slug(instance ,new_slug=None):
+	slug = slugify(instance.club_name)
+	if new_slug is not None:
+		slug = new_slug
+	qs = Club.objects.filter(club_slug=slug).order_by("-id")
+	exists = qs.exists()
+	if exists:
+		new_slug = slug+"-"+str(qs.first().id)
+		return create_slug(instance, new_slug=new_slug)
+	return slug
 # def pre_save_venue_receiver(sender, instance, *args, **kwargs):
 # 	city_qs = City.objects.filter(city_name=instance.venue_city).first()
 # 	city_qs.total_venues = city_qs.total_venues + 1
@@ -74,11 +84,11 @@ class Service(models.Model):
 # def pre_save_city_slug(sender, instance, *args, **kwargs):
 # 	if not instance.city_slug:
 # 		instance.city_slug = instance.city.lower()
-# def pre_save_locality_slug(sender, instance, *args, **kwargs):
-# 	if not instance.locality_slug:
-# 		instance.locality_slug = create_slug(instance)
-# pre_save.connect(pre_save_venue_receiver, sender=Venues)
+def pre_save_club_slug(sender, instance, *args, **kwargs):
+	if not instance.club_slug:
+		instance.club_slug = create_slug(instance)
+#pre_save.connect(pre_save_venue_receiver, sender=Venues)
 
-# pre_save.connect(pre_save_city_slug, sender=City)
+pre_save.connect(pre_save_club_slug, sender=Club)
 
 # pre_save.connect(pre_save_locality_slug, sender=Locality)

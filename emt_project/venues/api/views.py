@@ -3,6 +3,7 @@ from .serializers import (
 	CityDetailSerializer,
 	LocalityListSerializer,
 	LocalityDetailSerializer,
+	VenueCreateUpdateSerializer,
 	)
 from django.db.models import Q
 from rest_framework.filters import (
@@ -38,7 +39,9 @@ class CityDetailAPIView(RetrieveAPIView):
 	serializer_class = CityDetailSerializer
 	lookup_field = 'city_slug'
 
-
+class CityLocalityListAPIView(ListAPIView):
+	queryset = City.objects.all()
+	serializer_class = CityDetailSerializer
 
 class CityListAPIView(ListAPIView):
 	#queryset = City.objects.all()
@@ -72,6 +75,20 @@ class LocalityListAPIView(ListAPIView):
 			queryset_list = queryset_list.filter(Q(locality_name__icontains=query)
 					).distinct()
 		return queryset_list
+class VenueCreateAPIView(CreateAPIView):
+	queryset = Venues.objects.all()
+	serializer_class = VenueCreateUpdateSerializer
+
+class VenueUpdateAPIView(RetrieveUpdateAPIView):
+	queryset = Venues.objects.all()
+	serializer_class = VenueCreateUpdateSerializer
+	lookup_field = 'id'
+	def perform_update(self, serializer):
+		serializer.save()
+
+
+	# def perform_update(self, serializer):
+	# 	serializer.save()
 
 # class VenueDetailAPIView(RetrieveAPIView):
 # 	queryset = Venues.objects.all()

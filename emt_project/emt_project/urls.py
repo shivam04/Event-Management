@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^venue/',list_view),
     url(r'^api/venues/',include("venues.api.urls",namespace='venue-api')),
+    url(r'^api/clubs/',include("club.api.urls",namespace='club-api')),
+    url(r'^clubs/',include("club.urls",namespace="club")),
     #url(r'^api/venue/',CityListApiView.as_view())
 ]
 
