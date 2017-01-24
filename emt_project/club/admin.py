@@ -5,7 +5,7 @@ from .models import (
 	Service,
 	)
 class ClubAdmin(admin.ModelAdmin):
-	list_display = ["id","club_name"]
+	list_display = ["id","club_name","user"]
 	class Meta:
 		model = Club
 

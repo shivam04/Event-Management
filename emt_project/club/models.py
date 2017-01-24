@@ -5,10 +5,12 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from venues.models import Venues,City,Locality
+from django.contrib.auth.models import User
 # Create your models here.
 class Club(models.Model):
 	club_name = models.CharField(max_length=50)
 	club_slug = models.SlugField(unique=True,default=None)
+	user = models.OneToOneField(User,default=None)
 	def __unicode__(self):
 		return self.club_name			
 

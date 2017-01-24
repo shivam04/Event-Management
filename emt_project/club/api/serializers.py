@@ -25,6 +25,7 @@ class ClubListSerializer(ModelSerializer):
 		model = Club
 		fields = [
 			'club_name',
+			'user',
 		]
 
 # class VenuesListSerializer(ModelSerializer):
