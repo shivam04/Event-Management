@@ -83,6 +83,7 @@ class VenueUpdateAPIView(RetrieveUpdateAPIView):
 	queryset = Venues.objects.all()
 	serializer_class = VenueCreateUpdateSerializer
 	lookup_field = 'id'
+	permission_classes = ['IsAuthenticatedOrReadOnly']
 	def perform_update(self, serializer):
 		serializer.save()
 

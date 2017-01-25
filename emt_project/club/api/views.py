@@ -36,6 +36,7 @@ class ClubListAPIView(ListAPIView):
 class ClubCreateAPIView(CreateAPIView):
     queryset = Club.objects.all()
     #allowed_methods = ('GET','POST')
+    permission_classes = ['IsAuthenticatedOrReadOnly']
     serializer_class = ClubCreateUpdateSerializer
     # def perform_create(self,serializer):
     #     serializer.save()

@@ -16,6 +16,7 @@ class ClubCreateUpdateSerializer(ModelSerializer):
 	    model = Club
 	    fields = [
 	        'club_name',
+	        'user',
 	        'venue',
 	    ]
 	def get_venue(self,obj):
