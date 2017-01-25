@@ -21,12 +21,15 @@ class ClubCreateUpdateSerializer(ModelSerializer):
 	def get_venue(self,obj):
 		return VenuesListSerializer(obj.create_venue()).data
 class ClubListSerializer(ModelSerializer):
+	user_name = SerializerMethodField()
 	class Meta:
 		model = Club
 		fields = [
 			'club_name',
-			'user',
+			'user_name',
 		]
+	def get_user_name(self, obj):
+		return obj.user.username
 
 # class VenuesListSerializer(ModelSerializer):
 # 	address = SerializerMethodField()
