@@ -1,0 +1,8 @@
+$_Server
+$_session
+$_cookie
+$global
+htmlentities
+hash()
+md5
+php.net

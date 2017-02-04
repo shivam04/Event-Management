@@ -56,4 +56,4 @@ def register_club(request):
 	'cities':cities,
 	'locality':locality,
 	}
-	return render(request, "index.html",context)
+	return render(request, "clubs-create.html",context)

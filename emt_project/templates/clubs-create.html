@@ -1,0 +1,49 @@
+<form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
+{% csrf_token %}
+Club name:<input name="club_name" class="form-control" type="text" >
+<select name="city" id="mySelect" onchange="change('{{ locality }}');">
+	<option>City</option>
+	{% for city in cities %}
+
+		<option value="{{ city.id }}">{{ city.city_name }}</option>
+
+	{% endfor %}
+</select>
+<select name="locality" id="locality">
+	<option>Locality</option>
+</select>
+<input type="submit" value="POST"></button>
+</form>
+<script type="text/javascript">
+	function change(v) {
+		var x = document.getElementById("mySelect");
+		var z = x.options;
+		var i = x.selectedIndex;
+		city_name = z[i].text;
+		var locality = document.getElementById("locality");
+		var length = locality.options.length;
+		for (var i = 0; i < length; i++) {
+			  locality.options.remove(0);
+			}
+		var opt = document.createElement('OPTION');
+		opt.text = "Locality";
+		locality.add(opt);
+		//console.log(z[i].text)
+		console.log(v);
+		var local = JSON.parse(v);
+		console.log(local)
+		for(var x in local){
+			if (local[x].city_name==city_name){
+				var y = local[x].locality
+				for(i in y){
+					console.log(y[i])
+					var option = document.createElement('OPTION');
+					option.value = y[i].id;
+					option.text = y[i].locality_name;	
+					locality.add(option);
+				}
+			}
+		}
+		
+	}
+</script>

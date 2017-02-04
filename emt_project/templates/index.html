@@ -1,51 +1,970 @@
-<form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
-{% csrf_token %}
-Club name:<input name="club_name" class="form-control" type="text" >
-<select name="city" id="mySelect" onchange="change('{{ locality }}');">
-	<option>City</option>
-	{% for city in cities %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
 
-		<option value="{{ city.id }}">{{ city.city_name }}</option>
+<!-- Mirrored from envato.megadrupal.com/html/hillter/ by HTTrack Website Copier/3.x [XR&CO'2013], Sun, 08 Jan 2017 18:30:08 GMT -->
+<head>
+    <meta charset="utf-8">
+    <!-- TITLE -->
+    <title>Hillter - Hotel Booking HTML5 Template</title>
 
-	{% endfor %}
-</select>
-<select name="locality" id="locality">
-	<option>Locality</option>
-</select>
-<input type="submit" value="POST"></button>
-</form>
-<script type="text/javascript">
-	function change(v) {
-		var x = document.getElementById("mySelect");
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-		var z = x.options;
-		var i = x.selectedIndex;
-		city_name = z[i].text;
-		var locality = document.getElementById("locality");
-		var length = locality.options.length;
-		for (var i = 0; i < length; i++) {
-			  locality.options.remove(0);
-			}
-		var opt = document.createElement('OPTION');
-		opt.text = "Locality";
-		locality.add(opt);
-		//console.log(z[i].text)
-		console.log(v);
-		var local = JSON.parse(v);
-		console.log(local)
-		for(var x in local){
-			if (local[x].city_name==city_name){
-				var y = local[x].locality
-				for(i in y){
-					console.log(y[i])
-					var option = document.createElement('OPTION');
-					option.value = y[i].id;
-					option.text = y[i].locality_name;	
-					locality.add(option);
-				}
+    <!-- GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Hind:400,300,500,600%7cMontserrat:400,700' rel='stylesheet' type='text/css'>
 
-			}
-		}
-		
-	}
-</script>
+    <!-- CSS LIBRARY -->
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/font-awesome.min.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/font-hilltericon.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/bootstrap.min.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/owl.carousel.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/jquery-ui.min.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/magnific-popup.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/settings.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/lib/bootstrap-select.min.css" %}'>
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" type="text/css" href='{% static  "css/style.css" %}'>
+    <!-- Latest compiled and minified CSS -->
+   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+<!-- jQuery library -->
+   <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+
+<!-- Latest compiled JavaScript -->
+   <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .img {
+                    position: relative;
+            }
+        .hoverimg {
+                            font-style: Century; 
+                            text-shadow: 3px 2px white; 
+                            font-size: 32px;
+                            color: black;
+                            position: absolute;
+                            text-align: center;
+                            top: 25%;
+                            left: 10px;
+                            right: 10px;
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+        .img:hover{transform:scale(1.1);transition-duration: 1s;}
+
+        .img:hover .hoverimg {
+                                 visibility: visible;
+                                 opacity: 1;
+
+                              }
+    </style>
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','../../../connect.facebook.net/en_US/fbevents.js');
+
+/*var city = document.querySelector('#city');
+var locality = document.querySelector('#locality');
+var options2 = locality.querySelectorAll('option');
+
+function giveSelection(selValue) {
+  locality.innerHTML = '';
+  for(var i = 0; i < options2.length; i++) {
+    if(options2[i].dataset.option === selValue) {
+      locality.appendChild(options2[i]);
+    }
+  }
+}
+
+giveSelection(city.value);*/
+
+fbq('init', '1031554816897182');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscript=1"
+/></noscript></head>
+
+<!--[if IE 7]> <body class="ie7 lt-ie8 lt-ie9 lt-ie10"> <![endif]-->
+<!--[if IE 8]> <body class="ie8 lt-ie9 lt-ie10"> <![endif]-->
+<!--[if IE 9]> <body class="ie9 lt-ie10"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+    
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <span class="preloader-dot"></span>
+    </div>
+    <!-- END / PRELOADER -->
+
+    <!-- PAGE WRAP -->
+    <div id="page-wrap">
+
+        <!-- HEADER -->
+        <header id="header">
+            
+            <!-- HEADER TOP -->
+            <div class="header_top">
+                 <div class="container">
+                    <!-- <div class="header_left float-left">
+                        <span><i class="hillter-icon-cloud"></i> 18 °C</span>
+                        <span><i class="hillter-icon-location"></i> 225 Beach Street, Australian</span>
+                        <span><i class="hillter-icon-phone"></i> 1-548-854-8898</span>
+                    </div>
+                    <div class="header_right float-right">
+
+                        <span class="login-register">
+                            <a data-toggle="modal" data-target="#myModal">Login</a>
+
+                                
+                        </span>
+
+                        <div class="dropdown currency">
+                            <span>USD <i class="fa fa"></i></span>
+                            <ul>
+                                <li class="active"><a href="#">USD</a></li>
+                                <li><a href="#">EUR</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown language">
+                            <span>ENG</span>
+
+                            <ul>
+                                <li class="active"><a href="#">ENG</a></li>
+                                <li><a href="#">FR</a></li>
+                            </ul>
+                        </div>
+
+                    </div> -->
+                </div> 
+            </div>
+            <!-- END / HEADER TOP -->
+            
+            <!-- HEADER LOGO & MENU -->
+            <div class="header_content" id="header_content">
+
+                <div class="container">
+                    <!-- HEADER LOGO -->
+                    <div class="header_logo">
+                        <a href="#"><img src='{% static "images/logo-header.png" alt=" %}'></a>
+                    </div>
+                    <!-- END / HEADER LOGO -->
+                    
+                    <!-- HEADER MENU -->
+                    <nav class="header_menu">
+                        <ul class="menu">
+                            <li class="current-menu-item">
+                                <a href="index.html">Home <!-- <span class="fa fa-caret-down"></span> --></a>
+                               
+                            </li>
+                            <li><a href="about.html">About</a></li>
+                            
+                            <!-- <li>
+                                <a href="#">Room <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="room-1.html">Room 1</a></li>
+                                    <li><a href="room-2.html">Room 2</a></li>
+                                    <li><a href="room-3.html">Room 3</a></li>
+                                    <li><a href="room-4.html">Room 4</a></li>
+                                    <li><a href="room-5.html">Room 5</a></li>
+                                    <li><a href="room-6.html">Room 6</a></li>
+                                    <li><a href="room-detail.html">Room Detail</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Restaurant <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="restaurants-1.html">Restaurant 1</a></li>
+                                    <li><a href="restaurants-2.html">Restaurant 2</a></li>
+                                    <li><a href="restaurants-3.html">Restaurant 3</a></li>
+                                    <li><a href="restaurants-4.html">Restaurant 4</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Reservation <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="reservation-step-1.html">Reservation Step 1</a></li>
+                                    <li><a href="reservation-step-2.html">Reservation Step 2</a></li>
+                                    <li><a href="reservation-step-3.html">Reservation Step 3</a></li>
+                                    <li><a href="reservation-step-4.html">Reservation Step 4</a></li>
+                                    <li><a href="reservation-step-5.html">Reservation Step 5</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Page <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#">Guest Book <span class="fa fa-caret-right"></span></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="guest-book.html">Guest Book 1</a></li>
+                                            <li><a href="guest-book-2.html">Guest Book 2</a></li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="#">Event <span class="fa fa-caret-right"></span></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="events.html">Events</a></li>
+                                            <li><a href="events-fullwidth.html">Events Fullwidth</a></li>
+                                            <li><a href="events-detail.html">Events Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="attractions.html">Attractions</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Term Condition <span class="fa fa-caret-right"></span></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="term-condition.html">Term Condition 1</a></li>
+                                            <li><a href="term-condition-2.html">Term Condition 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Activiti <span class="fa fa-caret-down"></span></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="activiti.html">Activiti</a></li>
+                                            <li><a href="activiti-detail.html">Activiti Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="check-out.html">Check Out</a></li>
+                                    <li><a href="shortcode.html">ShortCode</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                    <li><a href="comingsoon.html">Comming Soon</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Gallery <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="gallery.html">Gallery Style 1</a></li>
+                                    <li><a href="gallery-2.html">Gallery Style 2</a></li>
+                                    <li><a href="gallery-3.html">Gallery Style 3</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Blog <span class="fa fa-caret-down"></span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="blog-detail.html">Blog Detail</a></li>
+                                    <li><a href="blog-detail-fullwidth.html">Blog Detail Fullwidth</a></li>
+                                </ul>
+                            </li> -->
+                            <li><a href="contact.html">Contact</a></li>
+                            <li> <a data-toggle="modal" data-target="#myModal">Login/register</a></li>
+                        </ul>
+                    </nav>
+                    <!-- END / HEADER MENU -->
+
+                    <!-- MENU BAR -->
+                    <span class="menu-bars">
+                        <span></span>
+                    </span>
+                    <!-- END / MENU BAR -->
+
+                </div>
+            </div>
+            <!-- END / HEADER LOGO & MENU -->
+
+        </header>
+        <!-- END / HEADER -->
+
+
+        <!-- BANNER SLIDER -->
+        <section class="section-slider">
+
+            <div class="banner-slider" id="banner-slider">
+
+                <!-- ITEM -->
+                <div class="slider-item text-center" data-image='{% static "images/slider/img-1.jpg" %}'>
+                    <div class="slider-text">
+                        <span class="slider-caption-sub slider-caption-sub-1">NEW bakery</span>
+                        <h2 class="slider-caption slider-caption-1">bakery SALLAD</h2>
+                        <a href="#" class="awe-btn awe-btn-12 awe-btn-slider">VIEW NOW</a>
+                    </div>
+                </div>
+                <!-- ITEM -->
+
+                <!-- ITEM -->
+                <div class="slider-item text-center" data-image='{% static "images/slider/img-2.jpg" %}'>
+                    <div class="slider-text">
+                        <span class="slider-caption-sub slider-caption-sub-2">EARLY BOOKING BONUS SALE</span>
+                        <h2 class="slider-caption slider-caption-2">SAVE <small>UP<br/>TO</small> 60%</h2>
+                        <a href="#" class="awe-btn awe-btn-default awe-btn-slider">VIEW NOW</a>
+                    </div>
+                </div>      
+                <!-- ITEM -->
+
+                <!-- ITEM -->
+                <div class="slider-item text-center" data-image='{% static "images/slider/img-3.jpg" %}'>
+                    <div class="slider-text">
+                        <span class="slider-icon"><img src='{% static "images/icon-slider-1.png" %}' alt=""></span><br>
+                        <span class="slider-caption-sub slider-caption-sub-3"><img src='{% static "images/icon-slider-4.png" %}' alt=""> EACH HOTEL IS <img src='{% static "images/icon-slider-3.png" %}' alt=""></span>
+                        <h2 class="slider-caption slider-caption-3">UNIQUE 60%</h2>
+                        <span class="slider-caption-sub slider-caption-sub-3">JUST LIKE YOU</span>
+                        <br>
+                        <span class="slider-icon"><img src='{% static "images/icon-slider-2.png" %}' alt=""></span>
+                    </div>
+                </div>
+                <!-- ITEM -->
+
+            </div>
+
+        </section>
+        <!-- END / BANNER SLIDER -->
+
+        <!-- CHECK AVAILABILITY -->
+        <section class="section-check-availability">
+            <div class="container">
+                <div class="check-availability">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h2>CHECK AVAILABILITY</h2>
+                        </div>
+                        <div class="col-lg-9">
+                            <form id="ajax-form-search-room" action="http://envato.megadrupal.com/html/hillter/search_step_2.php" method="post">
+                                <div class="availability-form">
+                                    <!--   <form role="form" action="http://www.venuebookingz.com/venues/index.php" method="get">
+                                                <div class="form-group">
+                                                    <input type="text" id="city-name" class="form-control input-lg" placeholder="Enter City name" onclick="_gaq.push(['_trackEvent', 'Desktop-Home-Page','Desktop-Locality-Searched','Desktop-Locality-Search-Text-box'])" required style="width: 220px;float:left;position: absolute;left: 100px" />
+                                                </div>
+                                                 <div class="form-group">
+                                                    <input type="text" id="locality-name" class="form-control input-lg" placeholder="Enter locality name" onclick="_gaq.push(['_trackEvent', 'Desktop-Home-Page','Desktop-Locality-Searched','Desktop-Locality-Search-Text-box'])" required style="width: 220px;float:left;position: absolute;left: 350px" />
+                                                </div>
+                                                 <div class="dropdown" style="width: 220px;float:left;position: absolute;left: 500px">
+                                                    <button class="btn btn-primary dropdown-toggle btn-md" type="button" data-toggle="dropdown" style="height: 40px; width: 130px">Select Service
+                                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" style="width: 220px;">
+                                                        <li><a href="#">HTML</a></li>
+                                                        <li><a href="#">CSS</a></li>
+                                                        <li><a href="#">JavaScript</a></li>
+                                                    </ul>
+                                                </div>
+                                            </form> 
+
+                                   
+                                    
+                                     
+                                    <div class="vailability-submit">
+                                        <button type="button" class="btn btn-success btn-sm" target="_blank" onclick="location.href='restaurants-1.html'" style="height: 40px; margin-left: 10px"  >FIND THE BEST RATES</button>
+                                    </div> -->
+                                
+    <div class="form-group">
+      <!-- <input type="text" class="form-control" id="City" placeholder="Enter City" style="width: 200px; float: left; margin-right: 20px"> -->
+      <select class="form-control" id="city"  style="height: 40px;width: 200px; float: left; margin-right: 20px" >
+       <option>Select City</option>
+        <option value="bareilly">bareilly</option>
+        <option value="gwalior">gwalior</option>
+        <option value="delhi">delhi</option>
+        <option value="hyderabad">hyderabad</option>
+      </select>
+    </div>
+    <div class="form-group">
+     <!--  <input type="text" class="form-control" id="Locality" placeholder="Enter Locality" style="width: 200px; float: left; margin-right: 20px"> -->
+       <select class="form-control" id="locality"   style="height: 40px;width: 200px; float: left; margin-right: 20px" >
+        <option>Select Locality</option>
+        <option if data-option="bareilly">rajendra nagar</option>
+        <option if data-option="bareilly">mahanagar</option>
+        <option if data-option="bareilly">d.d. puram</option>
+        <option if data-option="gwalior">hazir</option>
+        <option if data-option="gwalior">c.t center</option>
+        <option if data-option="gwalior">gole ka mandir</option>
+        <option>hong kong market</option>
+        <option>dwarika</option>
+        <option>karlo bagh</option>
+        <option>pitam pura</option>
+        <option>charminar</option>
+        <option>hussain sagar</option>
+        <option>birla mandir</option>
+        <option>ramoji</option>
+      </select>
+    </div>
+<!-- <div class="dropdown" style="width: 200px; float: left;" >
+ -->   <!--  <button class="btn btn-primary dropdown-toggle btn-lg" type="button" data-toggle="dropdown" style="height: 40px;width: 200px;">Service
+    <span class="caret"></span></button> -->
+     <div class="form-group">
+    <select class="form-control" id="sel1"  style="height: 40px;width: 200px;float: left;">
+          <option>Select Service</option>
+        <option>venue</option>
+        <option>marriage</option>
+        <option>party</option>
+        <option>club</option>
+      </select>
+      </div>
+       <div class="form-group">
+      <a href="reservation-step-2.html" class="btn btn-warning" style="width: 200px;height: 40px; float: left; align-items: center;padding-top: 10px;margin-left: 20px">Search</a>
+      </div>
+   
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END / CHECK AVAILABILITY -->
+
+        <!-- ACCOMD ODATIONS -->
+        <section class="section-accomd awe-parallax bg-14">
+            <div class="awe-overlay"></div>
+
+            <div class="container">
+                <div class="accomd-modations">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="accomd-modations-header">
+                                <h2 class="heading" style="color: rgb(36,123,40)">Services</h2>
+                                <p style="font-size: 18px">Bring Your People. We'll Do The Rest.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-md-offset-1">
+                            <div class="accomd-modations-content owl-single">
+                                
+                                <div class="row">
+
+                       
+                                   
+
+                                    <!-- ITEM -->
+                                    <div class="col-xs-6">
+                                        <div class="accomd-modations-room">
+                                            <div class="img">
+                                                <a href="restaurants-1.html" ><img src='{% static "images/room/img-1.jpg" %}' alt="">
+                                                 <p class="hoverimg">Book a treasure trove at The Grove</p></a>
+                                            </div>
+                                            <div class="text">
+                                                <h2><a href="restaurants-1.html">Venue</a></h2>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+                                    
+                                    <!-- ITEM -->
+                                    <div class="col-xs-6">
+                                        <div class="accomd-modations-room">
+                                            <div class="img">
+                                                <a href="restaurants-1.html"><img src='{% static "images/room/img-2.jpg" %}' alt="">
+                                                <p class="hoverimg">Where Wedding Dreams Come True</p></a>
+                                            </div>
+
+                                            <div class="text" >
+                                                <h2 ><a href="restaurants-1.html">Marriage</a></h2>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+                                    
+                                    <!-- ITEM -->
+                                    <div class="col-xs-6">
+                                        <div class="accomd-modations-room">
+                                            <div class="img">
+                                                <a href="restaurants-1.html"><img src='{% static "images/room/img-3.jpg" %}' alt="">
+                                                 <p class="hoverimg">Design your perfect party!</p></a>
+                                            </div>
+                                            <div class="text">
+                                                <h2 ><a href="restaurants-1.html">Party</a></h2>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+                                    
+                                    <!-- ITEM -->
+                                    <div class="col-xs-6">
+                                        <div class="accomd-modations-room">
+                                            <div class="img">
+                                                <a href="restaurants-2.html"><img src='{% static "images/room/img-4.jpg" %}' alt="">
+                                                 <p class="hoverimg">Lights, sounds, action, fun!</p></a>
+                                            </div>
+                                            <div class="text">
+                                                <h2><a href="restaurants-2.html">Club</a></h2>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END / ITEM -->
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- END / ACCOMD ODATIONS -->
+
+        <!-- HOME GUEST BOOK -->
+        <section class="section-home-guestbook awe-parallax bg-13">
+
+            <div class="awe-overlay"></div>
+
+            <div class="container">
+                <div class="home-guestbook">
+                        
+                    <div class="row">
+                        <div class="col-md-3 col-lg-2 col-lg-offset-1 col-lg-push-9 col-md-push-9">
+                            <div class="guestbook-header">
+                                <h2 class="heading">GUEST BOOK</h2>
+                                <p>Your feedback means the world to us.</p>
+                                <a href="#" class="awe-btn awe-btn-default">VIEW MORE</a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-9 col-lg-9 col-lg-pull-3 col-md-pull-3">
+                            <div class="guestbook-content owl-single">
+                                
+                                <!-- ITEM -->
+                                <div class="guestbook-item">
+                                    <div class="img">
+                                        <img src='{% static "images/avatar/img-5.jpg" %}' alt="">
+                                    </div>
+                                
+                                    <div class="text">
+                                        <p>This is the only place to stay in Catalina! I have stayed in the cheaper hotels and they were fine, but this is just the icing on the cake! After spending the day bike riding and hiking to come back and enjoy a glass of wine while looking out your ocean view window and then to top it all off...</p>
+                                        <span><strong>Seelentag</strong>From Los Angeles, California</span>
+                                    </div> 
+                                </div>
+                                <!-- ITEM -->
+
+                                <!-- ITEM -->
+                                <div class="guestbook-item">
+                                    <div class="img">
+                                        <img src='{% static "images/avatar/img-5.jpg" %}' alt="">
+                                    </div>
+                                
+                                    <div class="text">
+                                        <p>This is the only place to stay in Catalina! I have stayed in the cheaper hotels and they were fine, but this is just the icing on the cake! After spending the day bike riding and hiking to come back and enjoy a glass of wine while looking out your ocean view window and then to top it all off...</p>
+                                        <span><strong>Seelentag</strong>From Los Angeles, California</span>
+                                    </div> 
+                                </div>
+                                <!-- ITEM -->
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <!-- END / HOME GUEST BOOK -->
+
+      
+        
+        <!-- GALLERY -->
+        <section class="section-gallery bg-white">
+            
+            <div class="gallery  no-padding">
+                <h2 class="heading text-center">GALLERY</h2>
+                
+                <!-- FILTER -->
+                <div class="gallery-cat text-center">
+                    <ul class="list-inline">
+                        <li class="active"><a href="#" data-filter="*">All</a></li>
+                        <li><a href="#" data-filter=".ground">HOTEL &amp; GROUND</a></li>
+                        <li><a href="#" data-filter=".suite">ROOM/SUITE </a></li>
+                        <li><a href="#" data-filter=".bathroom">BATHROOM</a></li>
+                        <li><a href="#" data-filter=".dining">DINING</a></li>
+                    </ul>
+                </div>
+                <!-- END / FILTER -->
+
+                <!-- GALLERY CONTENT -->
+                <div class="gallery-content">
+                    <div class="row">
+                        <div class="gallery-isotope col-6 pd-0">
+
+                            <!-- ITEM SIZE -->
+                                <div class="item-size"></div>
+                                <!-- END / ITEM SIZE -->
+                            <!-- ITEM -->
+                            
+                            <div class="item-isotope suite dining ">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}' class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-1.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope  ground bathroom suite">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-2.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope ground bathroom dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-3.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope suite dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-4.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope  ground suite dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-5.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope ground bathroom dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-6.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope ground suite dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-7.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope bathroom suite dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-8.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope bathroom suite dining">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-9.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope ground bathroom">
+                                <div class="gallery_item">
+                                    <a  href='{% static "images/gallery/popup/img-1.jpg" %}'class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-10.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope ground bathroom suite ">
+                                <div class="gallery_item">
+                                    <a  href="images/gallery/popup/img-1.jpg" class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-11.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                            <!-- ITEM -->
+                            <div class="item-isotope ground bathroom">
+                                <div class="gallery_item">
+                                    <a  href="images/gallery/popup/img-1.jpg" class="gallery-popup mfp-image" title="Luxury Room view all">
+                                        <img src='{% static "images/gallery/img-12.jpg" %}' alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END / ITEM -->
+
+                        </div>
+                    </div>
+
+                    <div class="our-gallery text-center">
+                        <a href="#" class="awe-btn awe-btn-default">BROWSE OUR GALLERY</a>
+                    </div>
+
+                </div>
+                <!-- GALLERY CONTENT -->
+
+            </div>
+        </section>
+        <!-- END / GALLERY -->
+
+        <!-- FOOTER -->
+        <footer id="footer">
+
+            <!-- FOOTER TOP -->
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- WIDGET MAILCHIMP -->
+                        <div class="col-lg-8">
+                            <div class="mailchimp">
+                                <h4>News &amp; Offers</h4>
+                                <div class="mailchimp-form">
+                                    <form action="#" method="POST">
+                                        <input type="text" name="email" placeholder="Your email address" class="input-text">
+                                        <button class="awe-btn">SIGN UP</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END / WIDGET MAILCHIMP -->
+                        
+                        <!-- WIDGET SOCIAL -->
+                        <div class="col-lg-3 col-lg-offset-1">
+                            <div class="social">
+                                <div class="social-content">
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END / WIDGET SOCIAL -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- END / FOOTER TOP -->
+
+            <!-- FOOTER CENTER -->
+            <div class="footer_center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-xs-12 col-lg-5">
+                            <div class="widget widget_logo">
+                                <div class="widget-logo">
+                                    <div class="img">
+                                        <a href="#"><img src='{% static "images/logo-footer.png" %}' alt=""></a>
+                                    </div>
+                                    <div class="text">
+                                        <p><i class="hillter-icon-location"></i> 225 Beach Street, Australian</p>
+                                        <p><i class="hillter-icon-phone"></i> 1-548-854-8898</p>
+                                        <p><i class="fa fa-envelope-o"></i> <a href="http://envato.megadrupal.com/cdn-cgi/l/email-protection#8de5e4e1e1f9e8ffe5e2f9e8e1cdeae0ece4e1a3eee2e0"><span class="__cf_email__" data-cfemail="9bf3f2f7f7effee9f3f4effef7dbfcf6faf2f7b5f8f4f6">[email&#160;protected]</span><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[ */!function(t,e,r,n,c,a,p){try{t=document.currentScript||function(){for(t=document.getElementsByTagName('script'),e=t.length;e--;)if(t[e].getAttribute('data-cfhash'))return t[e]}();if(t&&(c=t.previousSibling)){p=t.parentNode;if(a=c.getAttribute('data-cfemail')){for(e='',r='0x'+a.substr(0,2)|0,n=2;a.length-n;n+=2)e+='%'+('0'+('0x'+a.substr(n,2)^r).toString(16)).slice(-2);p.replaceChild(document.createTextNode(decodeURIComponent(e)),c)}p.removeChild(t)}}catch(u){}}()/* ]]> */</script></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Page site</h4>
+                                <ul>
+                                    <li><a href="#">Guest Book</a></li>
+                                    <li><a href="#">Gallery</a></li>
+                                    <li><a href="#">Restaurant</a></li>
+                                    <li><a href="#">Event</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">ABOUT</h4>
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Comming Soon</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-lg-3">
+                            <div class="widget widget_tripadvisor">
+                                <h4 class="widget-title">Tripadvisor</h4>
+                                <div class="tripadvisor">
+                                    <p>Now with hotel reviews by</p>
+                                    <img src='{% static "images/tripadvisor.png" %}' alt="">
+                                    <span class="tripadvisor-circle">
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i class="part"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- END / FOOTER CENTER -->
+
+            <!-- FOOTER BOTTOM -->
+            <div class="footer_bottom">
+                <div class="container">
+                    <p>&copy; 2015 Hillter Hotel All rights reserved.</p>
+                </div>
+            </div>
+            <!-- END / FOOTER BOTTOM -->
+
+        </footer>
+        <!-- END / FOOTER -->
+
+    </div>
+    <!-- END / PAGE WRAP -->
+
+
+    <!-- LOAD JQUERY -->
+    <script type="text/javascript" src='{% static "js/lib/jquery-1.11.0.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery-ui.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/bootstrap.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/bootstrap-select.js" %}'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true"></script>
+    <script type="text/javascript" src='{% static "js/lib/isotope.pkgd.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.themepunch.revolution.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.themepunch.tools.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/owl.carousel.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.appear.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.countTo.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.countdown.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.parallax-1.1.3.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.magnific-popup.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/SmoothScroll.js" %}'></script>
+    <!-- validate -->
+    <script type="text/javascript" src='{% static "js/lib/jquery.form.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/lib/jquery.validate.min.js" %}'></script>
+    <!-- Custom jQuery -->
+    <script type="text/javascript" src='{% static "js/scripts.js" %}'></script>
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','../../../www.google-analytics.com/analytics.html','ga');
+
+        ga('create', 'UA-20585382-5', 'megadrupal.com');
+        ga('send', 'pageview');
+    </script>
+<script type="text/javascript">/* <![CDATA[ */(function(d,s,a,i,j,r,l,m,t){try{l=d.getElementsByTagName('a');t=d.createElement('textarea');for(i=0;l.length-i;i++){try{a=l[i].href;s=a.indexOf('/cdn-cgi/l/email-protection');m=a.length;if(a&&s>-1&&m>28){j=28+s;s='';if(j<m){r='0x'+a.substr(j,2)|0;for(j+=2;j<m&&a.charAt(j)!='X';j+=2)s+='%'+('0'+('0x'+a.substr(j,2)^r).toString(16)).slice(-2);j++;s=decodeURIComponent(s)+a.substr(j,m-j)}t.innerHTML=s.replace(/</g,'&lt;').replace(/>/g,'&gt;');l[i].href='mailto:'+t.value}}catch(e){}}}catch(e){}})(document);/* ]]> */</script></body>
+
+<!-- Mirrored from envato.megadrupal.com/html/hillter/ by HTTrack Website Copier/3.x [XR&CO'2013], Sun, 08 Jan 2017 18:32:12 GMT -->
+<!--  --></html>
+
+<div id="myModal"  class="modal fade" role="dialog" style="width: 500px; height: 535px; position: absolute;left: 450px;top: 50px; border-radius:20px; position:fixed;">
+    <div class="modal-header" style="background: rgb(52, 74, 113);" >
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3>Login</h3>
+        </div>
+    <div class="modal-body" style="background: #c2c9d6">
+        <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab"><b>Login</b></a></li>
+        <li><a href="#tab2" data-toggle="tab"><b>Register as Customer</b></a></li>
+         <li><a href="#tab3" data-toggle="tab"><b>Register as Corporate</b></a></li>
+        </ul>
+        <div class="tab-content">
+        <div class="tab-pane active" id="tab1" style="height: 395px">
+            <div class="row">
+                      <div class="well" style="position: absolute;left: 20px; right: 20px;">
+                          <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                              <div class="form-group"> 
+                                  <label for="username" class="control-label">Username</label>
+                                  <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div class="form-group">
+                                  <label for="password" class="control-label">Password</label>
+                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" name="remember" id="remember"> Remember login
+                                  </label>
+                                  <p class="help-block">(if this is a private computer)</p>
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block">Login</button></br>
+                              <h6 style="text-align: center;">IF NOT REGISTERED, PLEASE REGISTER FIRST</h6>
+                              
+                               
+
+                          </form>
+                      </div>
+                  
+              </div>
+        </div>
+        <div class="tab-pane" id="tab2" style="height: 395px">
+          
+             <div class="row">
+                      <div class="well" style="position: absolute;left: 20px; right: 20px;">
+                          <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                              <div class="form-group"> 
+                                  <label for="username" class="control-label">Enter Information</label> </br></br>
+                                  <input type="text" class="form-control" id="firstname" name="firstname" value="" required="" title="Please enter your first name" placeholder="First name" style="width: 180px; float:left; margin-right: 20px">
+                                  <input type="text" class="form-control" id="lastname" name="lastname" value="" required="" title="Please enter your last name" placeholder="Last name" style="width: 180px;float:left;"> </br></br></br></br>
+                                  <input type="text" class="form-control" id="contact" name="contact" value="" required="" title="Please enter your contact number" placeholder="Contact number" style="width: 150px; margin-right: 20px;float:left;">
+                                   <input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter your email address" placeholder="email address" style="width: 210px;float:left;"></br></br
+                                  <span class="help-block"></span>
+                              </div> </br>
+                              <div class="form-group">
+                                <!--   <label for="password" class="control-label">Password</label> -->
+                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" placeholder="Enter your password">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" name="remember" id="remember"> Remember login
+                                  </label>
+                                  <p class="help-block">(if this is a private computer)</p>
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+                          </form>
+                      </div>
+        </div>
+        </div>
+        <div class="tab-pane" id="tab3" style="height: 395px">
+            <p>Data 3.</p>
+        </div>
+        </div>
+        </div>
+   </div>
+   </div>
+   </div>
+ 
+                                <!-- Modal -->

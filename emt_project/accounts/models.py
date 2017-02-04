@@ -13,6 +13,9 @@ class NormalUser(models.Model):
 	def __str__(self):
 		return self.user.username 
 
+	def user_detail(self):
+		return User.objects.filter(username=self.user.username)
+
 class CorporateUser(models.Model):
 	user = models.OneToOneField(User)
 	comapny_name = models.CharField(max_length=100)
