@@ -4,6 +4,7 @@ from .views import (
     NormalListAPIView,
     NormalDetailAPIView,
     NormalUserCreateAPIView,
+    AllUserCreateAPIView,
     )
 urlpatterns = [
     url(r'^normalusers$', NormalListAPIView.as_view(), name='list'),
@@ -11,6 +12,7 @@ urlpatterns = [
     # url(r'locality/(?P<locality_slug>[\w-]+)/$',LocalityDetailAPIView.as_view(),name='locality_detail'),
     url(r'^normalusers/(?P<id>\d+)/$',NormalDetailAPIView.as_view(),name='user_detail'),
     url(r'^normalusers/create/$', NormalUserCreateAPIView.as_view(), name='user_create'),
+    url(r'^alluser/create/$',AllUserCreateAPIView.as_view(),name="all_user_create"),
     #url(r'^(?P<pk>\d+)/$', CommentDetailAPIView.as_view(), name='thread'),
     # url(r'^(?P<pk>\d+)/edit$', CommentDetailAPIView.as_view(), name='edit'),
     #url(r'^(?P<id>\d+)/delete/$', comment_delete, name='delete'),

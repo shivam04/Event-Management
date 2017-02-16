@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^venue/',list_view),
+    url(r'^accounts/',include("accounts.urls",namespace="accounts")),
     url(r'^api/venues/',include("venues.api.urls",namespace='venue-api')),
     url(r'^api/clubs/',include("club.api.urls",namespace='club-api')),
     url(r'^api/users/',include("accounts.api.urls",namespace="users-api")),

@@ -2,6 +2,8 @@ from .serializers import (
 	NormalUsersListSerializer,
     NormalUsersDetailSerializer,
     NormalUserCreateUpdateSerializer,
+    #AllUserCreateUpdateSerializer,
+    UserDetailSerializer,
 	)
 from django.db.models import Q
 from rest_framework.filters import (
@@ -29,6 +31,7 @@ from accounts.models import (
     NormalUser,
     CorporateUser,
     )
+from django.contrib.auth.models import User
 
 class NormalListAPIView(ListAPIView):
     queryset = NormalUser.objects.all()
@@ -41,3 +44,7 @@ class NormalDetailAPIView(RetrieveAPIView):
 class NormalUserCreateAPIView(CreateAPIView):
     queryset = NormalUser.objects.all()
     serializer_class = NormalUserCreateUpdateSerializer
+
+class AllUserCreateAPIView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer

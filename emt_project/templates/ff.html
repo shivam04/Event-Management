@@ -1,0 +1,4 @@
+<form method="POST" action="{% url 'accounts:test' %}">
+	{% csrf_token %}
+	<input type="submit" value="submit">
+</form>

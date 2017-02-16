@@ -30,16 +30,16 @@ from club.models import (
     Entry_rate,
     Service,
     )
-class ClubListCityAPIView(ListAPIView):
-    queryset = Club.objects.all()
-    # def get_serializer_class(self):
-    #     city = self.request.GET.get("city")
-    #     locality = self.request.GET.get("locality")
-    #     #parent_id = self.request.GET.get("parent_id", None)
-    #     return filter_by_city_serializer(
-    #             city=city,
-    #             locality=locality,
-    #             )
+# class ClubListCityAPIView(ListAPIView):
+#     queryset = Club.objects.all()
+#     # def get_serializer_class(self):
+#     #     city = self.request.GET.get("city")
+#     #     locality = self.request.GET.get("locality")
+#     #     #parent_id = self.request.GET.get("parent_id", None)
+#     #     return filter_by_city_serializer(
+#     #             city=city,
+#     #             locality=locality,
+#     #             )
 class ClubListAPIView(ListAPIView):
     #queryset = Club.objects.all()
     serializer_class = ClubListSerializer

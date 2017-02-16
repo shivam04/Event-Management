@@ -21,6 +21,7 @@ class NormalUsersListSerializer(ModelSerializer):
 	    	'user',
 	    	'url',
 	        'aadhar_card',
+
 	    ]
 	def get_user_name(self,obj):
 		user = obj.user.username
@@ -29,12 +30,14 @@ class UserDetailSerializer(ModelSerializer):
 	class Meta:
 		model = User
 		fields = [
+		'id',
 		'username',
 		'first_name',
 		'last_name',
-		'email'
+		'email',
+		'password',
 		]
-
+		write_only_fields = ('password',)
 class NormalUsersDetailSerializer(ModelSerializer):
 	#user_name = SerializerMethodField()
 	user_detail = SerializerMethodField()
@@ -55,10 +58,13 @@ class NormalUsersDetailSerializer(ModelSerializer):
 		# return user_detail
 		return UserDetailSerializer(obj.user_detail(),many=True).data
 class NormalUserCreateUpdateSerializer(ModelSerializer):
-	#address = SerializerMethodField()
+	user_detail = SerializerMethodField()
 	class Meta:
 	    model = NormalUser
 	    fields = [
 	        'user',
 	        'aadhar_card',
+	        'user_detail',
 	    ]
+	def get_user_detail(self,obj):
+		return UserDetailSerializer(obj.user_detail(),many=True).data

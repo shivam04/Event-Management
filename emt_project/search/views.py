@@ -5,6 +5,11 @@ from django.http import HttpResponse , HttpResponseRedirect , Http404
 import json
 # Create your views here.
 def index(request):
+	if request.session.has_key('Error'):
+		error =  signup = request.session.pop('Error', False)
+		print error
+	else:
+		error =None
 	client = RequestsClient()
 	cities = City.objects.all();
 	locality = client.get("http://127.0.0.1/api/venues/citylocality")
@@ -13,8 +18,9 @@ def index(request):
 	context={
 	'cities':cities,
 	'locality':locality,
+	'error':error,
 	}
-	print locality
+	#print locality
 	return render(request, "index.html",context)
 
 def retrieve(request):
@@ -23,7 +29,7 @@ def retrieve(request):
 		city = request.POST['city']
 		locality = request.POST['locality']
 		venue = request.POST['venue']
-		print venue
+		#print venue
 		# city_detail = client.get("http://127.0.0.1/api/venues/"+city)
 		# city_detail = city_detail.json()
 		# locality_detail = client.get("http://127.0.0.1/api/venues/locality/"+locality)
@@ -36,7 +42,7 @@ def retrieve(request):
 		# 	}
 		if venue=='club':
 			url = 'http://127.0.0.1/api/clubs/?city='+city+'&locality='+locality
-			print url
+			#print url
 			venues = client.get(url)
 			venues = venues.json()
 			context = {

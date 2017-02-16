@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Mirrored from envato.megadrupal.com/html/hillter/ by HTTrack Website Copier/3.x [XR&CO'2013], Sun, 08 Jan 2017 18:30:08 GMT -->
@@ -257,7 +258,7 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
                                 </ul>
                             </li> -->
                             <li><a href="contact.html">Contact</a></li>
-                            <li> <a data-toggle="modal" data-target="#myModal">Login/register</a></li>
+                            <li> <a data-toggle="modal" data-target="#myModal" id="login-reg">Login/register</a></li>
                         </ul>
                     </nav>
                     <!-- END / HEADER MENU -->
@@ -879,7 +880,7 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
         <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
         <li class="active"><a href="#tab1" data-toggle="tab"><b>Login</b></a></li>
-        <li><a href="#tab2" data-toggle="tab"><b>Register as Customer</b></a></li>
+        <li><a href="#tab2" data-toggle="tab" id="normal"><b>Register as Customer</b></a></li>
          <li><a href="#tab3" data-toggle="tab"><b>Register as Corporate</b></a></li>
         </ul>
         <div class="tab-content">
@@ -918,9 +919,10 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
           
              <div class="row">
                       <div class="well" style="position: absolute;left: 20px; right: 20px;">
-                          <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                          <form id="loginForm" method="POST" action="{% url 'accounts:register' %}" novalidate="novalidate">{% csrf_token %}
                               <div class="form-group"> 
                                   <label for="username" class="control-label">Enter Information</label> </br></br>
+                                  <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter your user name" placeholder="User name" ><br>
                                   <input type="text" class="form-control" id="firstname" name="firstname" value="" required="" title="Please enter your first name" placeholder="First name" style="width: 180px; float:left; margin-right: 20px">
                                   <input type="text" class="form-control" id="lastname" name="lastname" value="" required="" title="Please enter your last name" placeholder="Last name" style="width: 180px;float:left;"> </br></br></br></br>
                                   <input type="text" class="form-control" id="contact" name="contact" value="" required="" title="Please enter your contact number" placeholder="Contact number" style="width: 150px; margin-right: 20px;float:left;">
@@ -928,6 +930,7 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
                                   <span class="help-block"></span>
                               </div> </br>
                               <div class="form-group">
+                              <input type="text" class="form-control" id="aadhar" name="aadhar" value="" required="" title="Please enter your aadhar card number" placeholder="Addhar Number" ><br>
                                 <!--   <label for="password" class="control-label">Password</label> -->
                                   <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" placeholder="Enter your password">
                                   <span class="help-block"></span>
@@ -989,3 +992,10 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
         
     }
 </script>
+{% if error %}
+    <script type="text/javascript">
+        alert("{{ error }}");
+        $("#login-reg").click();
+        $("#normal").click();
+    </script>
+{% endif %}
