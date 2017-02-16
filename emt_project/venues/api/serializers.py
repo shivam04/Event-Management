@@ -12,6 +12,7 @@ from venues.models import (
 	)
 from django.core.urlresolvers import reverse
 import socket
+from django.contrib.contenttypes.models import ContentType
 class AddressListSerializer(ModelSerializer):
 	class Meta:
 		model = Address
@@ -54,7 +55,6 @@ class VenuesListSerializer(ModelSerializer):
 		return AddressListSerializer(obj.children(),many=True).data
 	def get_update(self,obj):
 		return reverse("venue-api:update",kwargs={"id":obj.id})
-
 locality_detail_url = HyperlinkedIdentityField(
         view_name='venue-api:locality_detail',
         lookup_field='locality_slug'
@@ -80,6 +80,8 @@ class LocalityDetailSerializer(ModelSerializer):
 			'venue',
 			'total_venues',
 			'city',
+			'locality_slug',
+
 		]
 	def get_venue(self,obj):
 		return VenuesListSerializer(obj.children(),many=True).data
@@ -99,7 +101,8 @@ class CityDetailSerializer(ModelSerializer):
 		model = City
 		fields = [
 			'city_name',
-			'locality'
+			'locality',
+
 		]
 	def get_locality(self,obj):
 			return LocalityDetailSerializer(obj.children(),many=True).data
@@ -108,8 +111,4 @@ class CityListSerializer(ModelSerializer):
 	url = city_detail_url
 	class Meta:
 		model = City
-		fields = [
-			'city_name',
-			'url',
-			'total_venues',
-		]
+		fields = '__all__'

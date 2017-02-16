@@ -11,10 +11,10 @@ class City(models.Model):
 	total_venues = models.IntegerField(default=0)
 	city_slug = models.SlugField(unique=True,default=None)
 	def __unicode__(self):
-		return self.city_name
+		return self.city_slug
 
 	def __str__(self):
-		return self.city_name
+		return self.city_slug
 
 	def children(self):
 		return Locality.objects.filter(city_name=self.id)
@@ -25,10 +25,10 @@ class Locality(models.Model):
 	total_venues = models.IntegerField(default=0)
 	locality_slug = models.SlugField(unique=True,default=None)
 	def __unicode__(self):
-		return self.locality_name
+		return self.locality_slug
 
 	def __str__(self):
-		return self.locality_name
+		return self.locality_slug
 
 	def children(self):
 		return Venues.objects.filter(venue_locality=self.id,venue_city=self.city_name)

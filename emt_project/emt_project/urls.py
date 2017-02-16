@@ -19,7 +19,7 @@ from django.conf.urls import include,url
 from django.contrib import admin
 
 from django.conf.urls.static import static
-from search.views import index
+#from search.views import index
 #from venues.views import list_view,CityListApiView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^api/users/',include("accounts.api.urls",namespace="users-api")),
     url(r'^clubs/',include("club.urls",namespace="club")),
     #url(r'^api/venue/',CityListApiView.as_view())
-    #url(r'^',index)
+    url(r'^',include("search.urls",namespace="search")),
 ]
 
 if settings.DEBUG:

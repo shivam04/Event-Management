@@ -7,12 +7,14 @@ from django.contrib.contenttypes.models import ContentType
 from venues.models import Venues,City,Locality
 from django.contrib.auth.models import User
 from django.conf import settings
+from venues.models import Venues
 
-# Create your models here.
 class Club(models.Model):
 	club_name = models.CharField(max_length=50)
 	club_slug = models.SlugField(unique=True,default=None)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+	#obj = ClubManager()
 	def __unicode__(self):
 		return self.club_name			
 
@@ -27,7 +29,15 @@ class Club(models.Model):
 		b = Venues(venue_name=self.club_name,content_type=content_type,object_id=self.id,venue_city=city,venue_locality=locality)
 		b.save()
 		return b
-
+	def get_city(self):
+		#print self.id
+		city_filter = Venues.objects.filter(object_id=self.id)
+		city_filter = city_filter.first()
+		return city_filter.venue_city
+	def get_locality(self):
+		locality_filter = Venues.objects.filter(object_id=self.id)
+		locality_filter = locality_filter.first()
+		return locality_filter.venue_locality
 	# def children(self):
 	# 	return Locality.objects.filter(service_name=self.id)
 
