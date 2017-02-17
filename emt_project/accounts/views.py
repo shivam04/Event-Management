@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse , HttpResponseRedirect , Http404,HttpResponseForbidden, HttpResponseBadRequest
 from rest_framework.test import RequestsClient,APIRequestFactory
 from django.middleware import csrf
+from django.http import JsonResponse
+import json
 def register(request):
 	client = RequestsClient()
 	if request.method=="POST":
@@ -16,6 +18,7 @@ def register(request):
 		username = request.POST['username']
 		csrftoken = request.POST.get("csrfmiddlewaretoken") 
 		aadhar = request.POST['aadhar']
+		#print username,password
 		url = "http://"+host+"/api/users/alluser/create/"
 		#print url
 		response = client.post(url, json={
@@ -25,7 +28,8 @@ def register(request):
 				    'email':email,
 				    'password':password,
 				}, headers={'X-CSRFToken': csrftoken})
-		#print response.status_code
+		# print response.status_code
+		# print response.json()
 		if response.status_code==201:
 			user = response.json()
 			user_id = user['id']
@@ -36,14 +40,24 @@ def register(request):
 				    'user': user_id,
 				    'aadhar_card':aadhar,
 				}, headers={'X-CSRFToken': csrftoken})
-			#print response_n.status_code
+			# print response_n.status_code
 			if response_n.status_code == 201:
-				k = response_n.json()
-				#print k['aadhar_card']
 				return redirect("/")
 		elif response.status_code == 400:
-			request.session['Error'] = 'Username Or Password Missing'
-			return  redirect("/")
+			data = response.json()
+			request.session['Error'] = data
+			# data = response.json()
+			# data= json.loads(json.dumps(data))
+			# print data['username'][0]
+			# if 'username' in data:
+			# 	request.session['Error']['username'] = data['username'][0]
+			# 	#print data['username']
+			# if 'password' in data:
+			# 	request.session['Error']['password'] = data['password'][0]
+			# 	#print data['password']
+			# if 'email' in email:
+			# 	request.session['Error']['email'] = data['email'][0]	
+			return redirect("/")
 	
 	else:
 		return HttpResponseForbidden()

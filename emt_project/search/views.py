@@ -6,13 +6,16 @@ import json
 # Create your views here.
 def index(request):
 	if request.session.has_key('Error'):
-		error =  signup = request.session.pop('Error', False)
+		error = request.session.pop('Error', False)
+		#print error['username'][0]
+		error = json.dumps(error)
 		print error
 	else:
 		error =None
 	client = RequestsClient()
 	cities = City.objects.all();
 	locality = client.get("http://127.0.0.1/api/venues/citylocality")
+	#print locality.json()
 	locality = json.dumps(locality.json())
 	#print locality
 	context={

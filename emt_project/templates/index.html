@@ -919,30 +919,31 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
           
              <div class="row">
                       <div class="well" style="position: absolute;left: 20px; right: 20px;">
-                          <form id="loginForm" method="POST" action="{% url 'accounts:register' %}" novalidate="novalidate">{% csrf_token %}
+                          <form id="registerForm"  novalidate="novalidate" method="POST" action="{% url 'accounts:register' %}">{% csrf_token %}
                               <div class="form-group"> 
                                   <label for="username" class="control-label">Enter Information</label> </br></br>
-                                  <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter your user name" placeholder="User name" ><br>
+                                  <h6 style="color:red;display:none;" id="req-user">*</h6><input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter your user name" placeholder="User name" ><br>
+                                  
                                   <input type="text" class="form-control" id="firstname" name="firstname" value="" required="" title="Please enter your first name" placeholder="First name" style="width: 180px; float:left; margin-right: 20px">
                                   <input type="text" class="form-control" id="lastname" name="lastname" value="" required="" title="Please enter your last name" placeholder="Last name" style="width: 180px;float:left;"> </br></br></br></br>
                                   <input type="text" class="form-control" id="contact" name="contact" value="" required="" title="Please enter your contact number" placeholder="Contact number" style="width: 150px; margin-right: 20px;float:left;">
-                                   <input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter your email address" placeholder="email address" style="width: 210px;float:left;"></br></br
+                                   <h6 style="color:red;display:none;" id="req-email">*</h6><input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter your email address" placeholder="email address" style="width: 210px;float:left;"></br></br
                                   <span class="help-block"></span>
                               </div> </br>
                               <div class="form-group">
                               <input type="text" class="form-control" id="aadhar" name="aadhar" value="" required="" title="Please enter your aadhar card number" placeholder="Addhar Number" ><br>
                                 <!--   <label for="password" class="control-label">Password</label> -->
-                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" placeholder="Enter your password">
+                                  <h6 style="color:red;display:none;" id="req-pwd">*</h6><input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" placeholder="Enter your password">
                                   <span class="help-block"></span>
                               </div>
-                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
                               <div class="checkbox">
                                   <label>
                                       <input type="checkbox" name="remember" id="remember"> Remember login
                                   </label>
                                   <p class="help-block">(if this is a private computer)</p>
                               </div>
-                              <button type="submit" class="btn btn-primary btn-block">Login</button>
+                              <button type="submit" class="btn btn-primary btn-block" name="SIGNUPSUBMIT">Register</button>
 
                           </form>
                       </div>
@@ -991,11 +992,57 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
         }
         
     }
+function register(){
+    
+    //e.preventDefault();
+    //alert("hi");
+        var username = document.getElementById('username').value;
+        var firstname = document.getElementById('firstname').value;
+        var lastname = document.getElementById('lastname').value;
+        var contact = document.getElementById('contact').value;
+        var email = document.getElementById('email').value;
+        var aadhar = document.getElementById('aadhar').value;
+        var password = document.getElementById('password').value;
+        var csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+        alert(username+" "+firstname+" "+lastname+" "+contact+" "+email+" "+aadhar+" "+password+" "+csrfmiddlewaretoken);
+        //console.log(fixedprice+" "+perhour+" "+featured+" "+promotional+" "+projectnormal+" "+urgent+" "+requirenormal+" "+freshers+" "+itermediate+" "+experianced+" "+freelancer+" "+intern);
+        $.post("./accounts/register",{'username':username,'firstname':firstname,'lastname':lastname,
+            'contact':contact,'email':email,'aadhar':aadhar,'password':password,'csrfmiddlewaretoken':csrfmiddlewaretoken}) // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+            .done(function( data ) {  // A function to be called if request succeeds
+            {
+                if(data.success){
+                    alert('Register');
+                    return true;
+
+                }else if(data.miss){
+                    alert(data.Error);
+                    return false;
+                }
+            }
+        });
+            //event.preventDefault();
+    }
 </script>
 {% if error %}
     <script type="text/javascript">
-        alert("{{ error }}");
+    w = "{{ error }}";
+    w = w.replace(/&quot;/g,'"');
+    console.log(w);
+    errors = JSON.parse(w);
+        if(errors.username){
+            $('#req-user').text(errors.username[0]);
+            $('#req-user').css('display',"block");
+        }
+        if(errors.password){
+            $('#req-pwd').text(errors.password[0]);
+            $('#req-pwd').css('display',"block");
+        }
+        if(errors.email){
+            $('#req-email').text(errors.email[0]);
+            $('#req-email').css('display',"block");
+        }    
         $("#login-reg").click();
         $("#normal").click();
     </script>
 {% endif %}
+

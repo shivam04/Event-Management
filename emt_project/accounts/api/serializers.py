@@ -27,17 +27,30 @@ class NormalUsersListSerializer(ModelSerializer):
 		user = obj.user.username
 		return user
 class UserDetailSerializer(ModelSerializer):
+	#password = serializers.CharField(write_only=True)
+
+	def create(self, validated_data):
+
+		user = User.objects.create(
+		username=validated_data['username'],
+		first_name=validated_data['first_name'],
+		last_name=validated_data['last_name'],
+		email = validated_data['email']
+		)
+		user.set_password(validated_data['password'])
+		user.save()
+
+		return user
 	class Meta:
 		model = User
-		fields = [
-		'id',
-		'username',
-		'first_name',
-		'last_name',
-		'email',
-		'password',
-		]
+		fields = ('id','username','password', 'first_name', 'last_name', 'email',)
 		write_only_fields = ('password',)
+	# def create(self, validated_data):
+	# 	# call set_password on user object. Without this
+	# 	# the password will be stored in plain text.
+	# 	user = super(UserDetailSerializer, self).create(validated_data)
+	# 	user.set_password(validated_data['password'])
+	# 	return user
 class NormalUsersDetailSerializer(ModelSerializer):
 	#user_name = SerializerMethodField()
 	user_detail = SerializerMethodField()
