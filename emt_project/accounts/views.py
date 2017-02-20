@@ -6,6 +6,12 @@ from rest_framework.test import RequestsClient,APIRequestFactory
 from django.middleware import csrf
 from django.http import JsonResponse
 import json
+from django.contrib.auth import(
+	authenticate,
+	get_user_model,
+	login,
+	logout,
+	)
 def register(request):
 	client = RequestsClient()
 	if request.method=="POST":
@@ -76,3 +82,32 @@ def test(request):
 		return redirect("/")
 	else:
 		return render(request,"ff.html",{})
+
+def login_view(request):
+	client = RequestsClient()
+	if request.method=="POST":
+		csrftoken = request.POST.get("csrfmiddlewaretoken")
+		username = request.POST.get("username")
+		password = request.POST.get("password")
+		# host = request.META['HTTP_HOST']
+		# url = "http://"+host+"/api/auth/token/"
+		# data = client.post(url,json={
+		# 		'username':username,
+		# 		'password':password, 
+		# 	},headers={'X-CSRFToken':csrftoken}).json()
+		# request.session['token'] = data['token']
+		# print request.session['token']
+		user = authenticate(username=username,password=password)
+		if user:
+			login(request,user)
+			if request.user.is_authenticated():
+				return redirect('/')
+			else:
+				return HttpResponseForbidden()
+		else:
+			return HttpResponseForbidden()
+	else:
+		return HttpResponseForbidden()
+def logout_view(request):
+	logout(request)
+	return redirect("/")

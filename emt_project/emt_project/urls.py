@@ -17,12 +17,15 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include,url
 from django.contrib import admin
-
+from rest_framework_jwt.views import obtain_jwt_token,verify_jwt_token,refresh_jwt_token
 from django.conf.urls.static import static
 #from search.views import index
 #from venues.views import list_view,CityListApiView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/auth/token/', obtain_jwt_token),
+    url(r'^api/verify/token/', verify_jwt_token),
+    url(r'^api/refresh/token/', refresh_jwt_token),
     #url(r'^venue/',list_view),
     url(r'^accounts/',include("accounts.urls",namespace="accounts")),
     url(r'^api/venues/',include("venues.api.urls",namespace='venue-api')),

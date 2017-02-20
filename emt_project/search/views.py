@@ -12,16 +12,37 @@ def index(request):
 		print error
 	else:
 		error =None
+
 	client = RequestsClient()
 	cities = City.objects.all();
+	# verify_token = client.post("http://127.0.0.1/api/verify/token/",json={
+	# 	'token':request.session['token']
+	# 	})
+	# print request.session['token']
+	# if verify_token.status_code==400:
+	# 	refresh_token = client.post("http://127.0.0.1/api/refresh/token/",json={
+	# 	'token':request.session['token']
+	# 	}).json()
+	# 	print refresh_token
+		# request.session['token'] = refresh_token['token']	
+	
+	# locality = client.get("http://127.0.0.1/api/venues/citylocality",headers={
+	# 	'Authorization':'JWT '+request.session['token'],
+	# 	})
 	locality = client.get("http://127.0.0.1/api/venues/citylocality")
 	#print locality.json()
 	locality = json.dumps(locality.json())
-	#print locality
+	user =""
+	if request.user:
+		user = request.user
+		print user.username
+	else:
+		user = None
 	context={
 	'cities':cities,
 	'locality':locality,
 	'error':error,
+	'user':user,
 	}
 	#print locality
 	return render(request, "index.html",context)
@@ -45,7 +66,10 @@ def retrieve(request):
 		# 	}
 		if venue=='club':
 			url = 'http://127.0.0.1/api/clubs/?city='+city+'&locality='+locality
-			#print url
+			#print request.session['token']
+			# venues = client.get(url,headers={
+			# 	'Authorization':'JWT '+request.session['token'],
+			# 	})
 			venues = client.get(url)
 			venues = venues.json()
 			context = {
@@ -54,3 +78,17 @@ def retrieve(request):
 			return render(request, "reservation-step-2.html",context)
 	else:
 		raise Http404
+
+def search_service(request,service):
+	if service=="club":
+		client = RequestsClient()
+		url = 'http://127.0.0.1/api/clubs/'
+		venues = client.get(url)
+		venues = venues.json()
+		return render(request,"reservation-step-2.html",{'venues':venues})
+	elif service=="venue":
+		return render(request,"reservation-step-2.html",{})
+	elif service=="marriage":
+		return render(request,"reservation-step-2.html",{})
+	else:
+		return render(request,"reservation-step-2.html",{})

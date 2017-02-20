@@ -258,7 +258,11 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
                                 </ul>
                             </li> -->
                             <li><a href="contact.html">Contact</a></li>
+                            {% if  user.username %}
+                            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                            {% else %}
                             <li> <a data-toggle="modal" data-target="#myModal" id="login-reg">Login/register</a></li>
+                            {% endif %}
                         </ul>
                     </nav>
                     <!-- END / HEADER MENU -->
@@ -472,11 +476,11 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
                                     <div class="col-xs-6">
                                         <div class="accomd-modations-room">
                                             <div class="img">
-                                                <a href="restaurants-2.html"><img src=' {% static "images/room/img-4.jpg" %} ' alt="">
+                                                <a href="{% url 'search:search_service' service='club' %}"><img src=' {% static "images/room/img-4.jpg" %} ' alt="">
                                                  <p class="hoverimg">Lights, sounds, action, fun!</p></a>
                                             </div>
                                             <div class="text">
-                                                <h2><a href="restaurants-2.html">Club</a></h2>
+                                                <h2><a href="{% url 'search:search_service' service='club' %}">Club</a></h2>
                                             
                                             </div>
                                         </div>
@@ -873,7 +877,7 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
 
 <div id="myModal"  class="modal fade" role="dialog" style="width: 500px; height: 535px; position: absolute;left: 450px;top: 50px; border-radius:20px; position:fixed;">
     <div class="modal-header" style="background: rgb(52, 74, 113);" >
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <button type="button" id="close-btn" class="close" data-dismiss="modal">&times;</button>
         <h3>Login</h3>
         </div>
     <div class="modal-body" style="background: #c2c9d6">
@@ -887,7 +891,7 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
         <div class="tab-pane active" id="tab1" style="height: 395px">
             <div class="row">
                       <div class="well" style="position: absolute;left: 20px; right: 20px;">
-                          <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                          <form id="loginForm" method="POST" action="{% url 'accounts:login' %}" novalidate="novalidate">{% csrf_token %}
                               <div class="form-group"> 
                                   <label for="username" class="control-label">Username</label>
                                   <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
@@ -1046,3 +1050,14 @@ function register(){
     </script>
 {% endif %}
 
+<script type="text/javascript">
+    $('#login-reg').click(function(){
+        $('body').css('overflow','hidden');
+        $('body').css('position','fixed');
+
+    });
+    $('#close-btn').click(function(){
+        $('body').css('overflow','');
+        $('body').css('position','');
+    })
+</script>
