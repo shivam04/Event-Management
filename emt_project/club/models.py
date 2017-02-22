@@ -12,6 +12,7 @@ from venues.models import Venues
 class Club(models.Model):
 	club_name = models.CharField(max_length=50)
 	club_slug = models.SlugField(unique=True,default=None)
+	description = models.TextField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
 	#obj = ClubManager()
@@ -38,6 +39,8 @@ class Club(models.Model):
 		locality_filter = Venues.objects.filter(object_id=self.id)
 		locality_filter = locality_filter.first()
 		return locality_filter.venue_locality
+	def get_absolute_url(self):
+		return reverse("club:detail",kwargs={"slug":self.club_slug})
 	# def children(self):
 	# 	return Locality.objects.filter(service_name=self.id)
 

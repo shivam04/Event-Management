@@ -41,7 +41,36 @@ class ClubCreateUpdateSerializer(ModelSerializer):
 	    ]
 	def get_venue(self,obj):
 		return VenuesListSerializer(obj.create_venue()).data
+club_detail_url = HyperlinkedIdentityField(
+        view_name='club-api:club_detail',
+        lookup_field='club_slug'
+        )
 class ClubListSerializer(ModelSerializer):
+	#user_name = SerializerMethodField()
+	city = SerializerMethodField()
+	locality = SerializerMethodField()
+	url = club_detail_url
+	slug = SerializerMethodField()
+	class Meta:
+		model = Club
+		fields = [
+			'club_name',
+			'description',
+			'city',
+			'locality',
+			'slug',
+			'url',
+		]
+	def get_slug(self,obj):
+		return obj.club_slug
+	def get_user_name(self, obj):
+		return obj.user.username
+	def get_city(self,obj):
+		return str(obj.get_city())
+	def get_locality(self,obj):
+		return str(obj.get_locality())
+
+class ClubDetailSerializer(ModelSerializer):
 	user_name = SerializerMethodField()
 	city = SerializerMethodField()
 	locality = SerializerMethodField()
@@ -52,6 +81,8 @@ class ClubListSerializer(ModelSerializer):
 			'user_name',
 			'city',
 			'locality',
+			'description',
+			'club_slug',
 		]
 	def get_user_name(self, obj):
 		return obj.user.username

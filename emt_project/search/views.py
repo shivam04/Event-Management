@@ -50,6 +50,7 @@ def index(request):
 def retrieve(request):
 	client = RequestsClient()
 	if request.method == 'POST':
+		print request.method
 		city = request.POST['city']
 		locality = request.POST['locality']
 		venue = request.POST['venue']
@@ -65,6 +66,7 @@ def retrieve(request):
 		# 	'venues':venues,
 		# 	}
 		if venue=='club':
+			request.session['venue'] = 'club'
 			url = 'http://127.0.0.1/api/clubs/?city='+city+'&locality='+locality
 			#print request.session['token']
 			# venues = client.get(url,headers={
@@ -72,8 +74,11 @@ def retrieve(request):
 			# 	})
 			venues = client.get(url)
 			venues = venues.json()
+			print venues
 			context = {
+			'ven':'club',
 			'venues':venues,
+			'title':'Search'
 			}
 			return render(request, "reservation-step-2.html",context)
 	else:
@@ -81,14 +86,22 @@ def retrieve(request):
 
 def search_service(request,service):
 	if service=="club":
+		request.session['venue'] = 'club'
 		client = RequestsClient()
 		url = 'http://127.0.0.1/api/clubs/'
 		venues = client.get(url)
 		venues = venues.json()
-		return render(request,"reservation-step-2.html",{'venues':venues})
+		print venues
+		return render(request,"reservation-step-2.html",{'venues':venues,'title':'Club','ven':'club'})
 	elif service=="venue":
 		return render(request,"reservation-step-2.html",{})
 	elif service=="marriage":
 		return render(request,"reservation-step-2.html",{})
 	else:
 		return render(request,"reservation-step-2.html",{})
+
+def about(request):
+	return render(request,'about.html',{'title':'About'})
+
+def contact(request):
+	return render(request,'contact.html',{'title':'Contact'})

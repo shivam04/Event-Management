@@ -57,3 +57,19 @@ def register_club(request):
 	'locality':locality,
 	}
 	return render(request, "clubs-create.html",context)
+
+def detail(request,slug):
+	#print slug
+	client = RequestsClient()
+
+	host =  request.META['HTTP_HOST'] 
+	url =  'http://'+host+'/api/clubs/'+slug+'/'
+
+	print url
+	club_detail = client.get(url).json()
+	print club_detail
+	context={
+	'detail':club_detail,
+	'title':club_detail['club_name']
+	}
+	return render(request,"room-detail.html",context)

@@ -3,6 +3,7 @@ from django.contrib import admin
 from .views import (
     ClubListAPIView,
     ClubCreateAPIView,
+    ClubDetailAPIView,
     #ClubListCityAPIView,
     )
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     # url(r'^(?P<city_slug>[\w-]+)/$',CityDetailAPIView.as_view(),name='detail')
 
     url(r'^create/$', ClubCreateAPIView.as_view(), name='create'),
+    url(r'^(?P<club_slug>[\w-]+)/$',ClubDetailAPIView.as_view(),name="club_detail"),
     #url(r'^(?P<pk>\d+)/$', CommentDetailAPIView.as_view(), name='thread'),
     # url(r'^(?P<pk>\d+)/edit$', CommentDetailAPIView.as_view(), name='edit'),
     #url(r'^(?P<id>\d+)/delete/$', comment_delete, name='delete'),

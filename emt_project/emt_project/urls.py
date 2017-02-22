@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^api/clubs/',include("club.api.urls",namespace='club-api')),
     url(r'^api/users/',include("accounts.api.urls",namespace="users-api")),
     url(r'^clubs/',include("club.urls",namespace="club")),
+    url(r'^book/',include("bookings.urls",namespace="book")),
     #url(r'^api/venue/',CityListApiView.as_view())
     url(r'^',include("search.urls",namespace="search")),
 ]

@@ -2,6 +2,7 @@ from .serializers import (
 	ClubListSerializer,
     ClubCreateUpdateSerializer,
     filter_by_city_serializer,
+    ClubDetailSerializer,
 	)
 from django.db.models import Q
 from rest_framework.filters import (
@@ -71,3 +72,8 @@ class ClubCreateAPIView(CreateAPIView):
     #     serializer.save()
 
     #allowed_methods = ('get', 'post', 'put', 'delete','patch')
+
+class ClubDetailAPIView(RetrieveAPIView):
+    queryset = Club.objects.all()
+    serializer_class = ClubDetailSerializer
+    lookup_field = 'club_slug'
