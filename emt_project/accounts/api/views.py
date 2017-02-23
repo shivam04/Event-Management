@@ -36,8 +36,16 @@ from accounts.models import (
 from django.contrib.auth.models import User
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 class NormalListAPIView(ListAPIView):
-    queryset = NormalUser.objects.all()
+    #queryset = NormalUser.objects.all()
     serializer_class = NormalUsersListSerializer
+    def get_queryset(self, *args, **kwargs):
+        user = self.request.GET.get('user')
+        
+        if user:
+            query_list = NormalUser.objects.filter(user=user)
+        else:
+            query_list = NormalUser.objects.all()
+        return query_list
 class NormalDetailAPIView(RetrieveAPIView):
     queryset = NormalUser.objects.all()
     serializer_class = NormalUsersDetailSerializer

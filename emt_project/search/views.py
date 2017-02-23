@@ -43,6 +43,7 @@ def index(request):
 	'locality':locality,
 	'error':error,
 	'user':user,
+	'next':'',
 	}
 	#print locality
 	return render(request, "index.html",context)
@@ -78,7 +79,8 @@ def retrieve(request):
 			context = {
 			'ven':'club',
 			'venues':venues,
-			'title':'Search'
+			'title':'Search',
+			'next':'',
 			}
 			return render(request, "reservation-step-2.html",context)
 	else:
@@ -92,7 +94,7 @@ def search_service(request,service):
 		venues = client.get(url)
 		venues = venues.json()
 		print venues
-		return render(request,"reservation-step-2.html",{'venues':venues,'title':'Club','ven':'club'})
+		return render(request,"reservation-step-2.html",{'venues':venues,'title':'Club','ven':'club','next':'/club/search/'})
 	elif service=="venue":
 		return render(request,"reservation-step-2.html",{})
 	elif service=="marriage":

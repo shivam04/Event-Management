@@ -6,7 +6,7 @@ class NormalUser(models.Model):
 	user = models.OneToOneField(User)
 	#comapny = models.CharField(max_length=100)
 	aadhar_card = models.CharField(default=1234567890,max_length=20)
-
+	contact_no = models.CharField(max_length=11)
 	def __unicode__(self):
 		return self.user.username
 
@@ -21,6 +21,7 @@ class CorporateUser(models.Model):
 	user = models.OneToOneField(User)
 	comapny_name = models.CharField(max_length=100)
 	aadhar_card = models.CharField(max_length=20)
+	contact_no = models.CharField(max_length=11)
 	def __unicode__(self):
 		return self.user.username
 

@@ -190,34 +190,34 @@
                             <div class="reservation_content">
                                 
                                 <div class="reservation-billing-detail">
-
-                                    <p class="reservation-login">Returning customer? <a href="#">Click here to login</a></p>
-
+                                {% if not user %}
+                                    <p class="reservation-login">Returning customer? <a data-toggle="modal" data-target="#myModal" id="login-reg" href="#">Click here to login</a></p>
+                                {% else %}
                                     <h4>BILLING DETAILS</h4>
 
-                                    <label>Country <sup>*</sup></label>
+                                    <!-- <label>Country <sup>*</sup></label>
                                     <select class="awe-select">
                                         <option>United Kingdom (Uk)</option>
                                         <option>Viet Nam</option>
                                         <option>Thai Lan</option>
                                         <option>China</option>
-                                    </select>
+                                    </select> -->
 
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label>First Name<sup>*</sup></label>
-                                            <input type="text" class="input-text">
+                                            <input type="text" value="{{ data.user_detail.first_name }}" class="input-text" disabled>
                                         </div>
                                         <div class="col-sm-6">
                                             <label>Last Name<sup>*</sup></label>
-                                            <input type="text" class="input-text">
+                                            <input type="text" class="input-text" value="{{ data.user_detail.last_name }}" disabled>
                                         </div>
                                     </div>
 
-                                    <label>Company Name</label>
+                                   <!--  <label>Company Name</label>
                                     <input type="text" class="input-text">
-
-                                    <label>Address<sup>*</sup></label>
+ -->
+                                    <!-- <label>Address<sup>*</sup></label>
                                     <input type="text" class="input-text" placeholder="Street Address">
                                     <br><br>
                                     <input type="text" class="input-text" placeholder="Apartment, suite, unit etc. (Optional)">
@@ -231,31 +231,31 @@
                                             <label>Country<sup>*</sup></label>
                                             <input type="text" class="input-text">
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label>Email Address<sup>*</sup></label>
-                                            <input type="text" class="input-text">
+                                            <input type="text" class="input-text" value="{{ data.user_detail.email }}" disabled>
                                         </div>
                                         <div class="col-sm-6">
                                             <label>Phone<sup>*</sup></label>
-                                            <input type="text" class="input-text">
+                                            <input type="text" class="input-text" value="{{ data.contact_no }}" disabled>
                                         </div>
                                     </div>
 
-                                    <label>Order Notes</label>
-                                    <textarea type="text" class="input-textarea" placeholder="Notes about your order, eg. special notes for delivery"></textarea>
+                                   <!--  <label>Order Notes</label>
+                                    <textarea type="text" class="input-textarea" placeholder="Notes about your order, eg. special notes for delivery"></textarea> -->
 
-                                    <label class="label-radio">
+                                  <!--   <label class="label-radio">
                                         <input type="radio" class="input-radio">
                                         Create an account?
-                                    </label>
+                                    </label> -->
 
-                                    <p class="reservation-code">
+                                    <!-- <p class="reservation-code">
                                         You have a coupon? <a href="#">Click here to enter your code</a>
                                     </p>
-
+ -->
                                     <ul class="option-bank">
                                         <li>
                                             <label class="label-radio">
@@ -293,7 +293,7 @@
                     </div>
                 </div>
             </div>
-
+{% endif %}
         </section>
         <!-- END / RESERVATION -->
         

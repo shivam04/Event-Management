@@ -85,6 +85,8 @@ def test(request):
 
 def login_view(request):
 	client = RequestsClient()
+	nextp = request.GET['nextp']
+	print nextp
 	if request.method=="POST":
 		csrftoken = request.POST.get("csrfmiddlewaretoken")
 		username = request.POST.get("username")
@@ -101,7 +103,10 @@ def login_view(request):
 		if user:
 			login(request,user)
 			if request.user.is_authenticated():
-				return redirect('/')
+				if nextp=='':
+					return redirect('/')
+				else:
+					return redirect(nextp)
 			else:
 				return HttpResponseForbidden()
 		else:

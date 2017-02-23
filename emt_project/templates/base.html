@@ -462,7 +462,7 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
         <div class="tab-pane active" id="tab1" style="height: 395px">
             <div class="row">
                       <div class="well" style="position: absolute;left: 20px; right: 20px;">
-                          <form id="loginForm" method="POST" action="{% url 'accounts:login' %}" novalidate="novalidate">{% csrf_token %}
+                          <form id="loginForm" method="POST" action="{% url 'accounts:login' %}?nextp={{ next }}" novalidate="novalidate">{% csrf_token %}
                               <div class="form-group"> 
                                   <label for="username" class="control-label">Username</label>
                                   <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">

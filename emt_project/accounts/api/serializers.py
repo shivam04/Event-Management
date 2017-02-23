@@ -27,6 +27,7 @@ class NormalUsersListSerializer(ModelSerializer):
 	    	'user_name',
 	    	'user',
 	    	'url',
+	    	'contact_no',
 	        'aadhar_card',
 
 	    ]
@@ -43,6 +44,7 @@ class UserDetailSerializer(ModelSerializer):
 		first_name=validated_data['first_name'],
 		last_name=validated_data['last_name'],
 		email = validated_data['email']
+		#contact_no = validated_data['contact_no']
 		)
 		user.set_password(validated_data['password'])
 		user.save()
@@ -51,7 +53,9 @@ class UserDetailSerializer(ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('id','username','password', 'first_name', 'last_name', 'email',)
-		write_only_fields = ('password',)
+		extra_kwargs = {"password":
+                            {"write_only": True}
+                            }
 	# def create(self, validated_data):
 	# 	# call set_password on user object. Without this
 	# 	# the password will be stored in plain text.
@@ -67,6 +71,7 @@ class NormalUsersDetailSerializer(ModelSerializer):
 	    	'user',
 	    	'user_detail',
 	        'aadhar_card',
+	        'contact_no',
 	    ]
 	def get_user_detail(self,obj):
 		# u =  obj.user
@@ -85,6 +90,7 @@ class NormalUserCreateUpdateSerializer(ModelSerializer):
 	        'user',
 	        'aadhar_card',
 	        'user_detail',
+	        'contact_no',
 	    ]
 	def get_user_detail(self,obj):
 		return UserDetailSerializer(obj.user_detail(),many=True).data

@@ -41,6 +41,11 @@ class Club(models.Model):
 		return locality_filter.venue_locality
 	def get_absolute_url(self):
 		return reverse("club:detail",kwargs={"slug":self.club_slug})
+	def get_entry_rates(self):
+		#print Entry_rate.objects.filter(club_name=self.id)
+		return Entry_rate.objects.filter(club_name=self.id)
+	def get_service(self):
+		return Service.objects.filter(club_name=self.id)
 	# def children(self):
 	# 	return Locality.objects.filter(service_name=self.id)
 

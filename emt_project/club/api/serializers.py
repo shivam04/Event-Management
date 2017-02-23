@@ -74,6 +74,8 @@ class ClubDetailSerializer(ModelSerializer):
 	user_name = SerializerMethodField()
 	city = SerializerMethodField()
 	locality = SerializerMethodField()
+	entry_type = SerializerMethodField()
+	services = SerializerMethodField()
 	class Meta:
 		model = Club
 		fields = [
@@ -83,6 +85,8 @@ class ClubDetailSerializer(ModelSerializer):
 			'locality',
 			'description',
 			'club_slug',
+			'entry_type',
+			'services',
 		]
 	def get_user_name(self, obj):
 		return obj.user.username
@@ -90,7 +94,19 @@ class ClubDetailSerializer(ModelSerializer):
 		return str(obj.get_city())
 	def get_locality(self,obj):
 		return str(obj.get_locality())
+	def get_entry_type(self,obj):
+		return EntrySerializer(obj.get_entry_rates(),many=True).data
+	def get_services(self,obj):
+		return ServiceSerializer(obj.get_service(),many=True).data
 
+class EntrySerializer(ModelSerializer):
+	class Meta:
+		model = Entry_rate
+		fields = '__all__'
+class ServiceSerializer(ModelSerializer):
+	class Meta:
+		model = Service
+		fields = '__all__'
 # class VenuesListSerializer(ModelSerializer):
 # 	address = SerializerMethodField()
 # 	class Meta:
@@ -159,3 +175,4 @@ class ClubDetailSerializer(ModelSerializer):
 # 			'url',
 # 			'total_venues',
 # 		]
+
