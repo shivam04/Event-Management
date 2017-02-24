@@ -88,13 +88,22 @@
                                 </div>
                                 
                                 <div class="room-detail_form">
+                                <form action="/book/{{ detail.slug }}/">
                                     <label>Arrive</label>
-                                    <input type="text" class="awe-calendar" placeholder="Arrive Date">
-                                    <label>Depature</label>
-                                    <input type="text" class="awe-calendar" placeholder="Departure Date">
-                                    <label>Guests</label>
-                                     <input type="text" name="Guests"  placeholder="Number of Guests" style="width: 210px">
-                                    <a href="reservation-step-5.html"><button class="awe-btn awe-btn-13">Book Now</button></a>
+                                    <input type="text" class="awe-calendar" name = "date" placeholder="Arrive Date">
+                                    <!-- <label>Depature</label>
+                                    <input type="text" class="awe-calendar" placeholder="Departure Date"> -->
+                                    <label>Entry Type</label>
+                                    <select name="entry" style="width: 210px;height:30px;">
+                                    {% for entry in detail.entry_type %}
+                                        <option value="{{ entry.entry_type }}">{{ entry.entry_type }}</option>
+                                    {% endfor %}
+                                    </select>
+                                    <!-- <label>Guests</label>
+                                     <input type="text" name="guests"  placeholder="Number of Guests" style="width: 210px"> -->
+                                    <input type="submit" class="awe-btn awe-btn-13" value="Book Now"><!-- <button class="">Book Now</button></a> -->
+                                </form>
+                                    
                                 </div>
 
                             </div>
@@ -149,15 +158,18 @@
                                 <p>Located in the heart of Aspen with a unique blend of contemporary luxury and historic heritage, deluxe accommodations, superb amenities, genuine hospitality and dedicated service for an elevated experience in the Rocky Mountains.</p>
                                         
                                         <div class="row">
+                                        {% for service in detail.services %}
                                             <div class="col-xs-6 col-lg-4">
-                                                <h6>LIVING ROOM</h6>
-                                                <ul>
+
+                                                <h6>{{ service.service_name }}</h6>
+                                                <!-- <ul>
                                                     <li>Oversized work desk</li>
                                                     <li>Hairdryer</li>
                                                     <li>Iron/ironing board upon request</li>
-                                                </ul>
+                                                </ul> -->
                                             </div>
-                                            <div class="col-xs-6 col-lg-4">
+                                        {% endfor %}
+                                           <!--  <div class="col-xs-6 col-lg-4">
                                                 <h6>KITCHEN ROOM</h6>
                                                 <ul>
                                                     <li>AM/FM clock radio</li>
@@ -200,7 +212,7 @@
                                                     <li>24-hour Concierge service</li>
                                                     <li>Private concierge</li>
                                                 </ul>
-                                            </div>
+                                            </div> -->
                                         </div></br></br></br></br>
                                            <!-- end of aminities --> 
                                            <a name="package"></a>
@@ -277,26 +289,27 @@
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th>Rate Period</th>
-                                                    <th>Nightly</th>
-                                                    <th>Weekend Night</th>
+                                                    <th>Entry Type</th>
+                                                    <th>Rate</th>
+                                                    <!-- <th>Weekend Night</th>
                                                     <th>Weekly</th>
                                                     <th>Monthly</th>
-                                                    <th>Event</th>
+                                                    <th>Event</th> -->
                                                 </tr>
                                             </thead>
+                                            {% for entry in detail.entry_type %}
                                             <tr>
                                                 <td>
-                                                    <h6>Spring/Summer Season</h6>
-                                                    <ul>
+                                                    <h6>{{ entry.entry_type }}</h6>
+                                                    <!-- <ul>
                                                         <li>Jun 1 - Aug 31</li>
                                                         <li>3 night minimum stay</li>
-                                                    </ul>
+                                                    </ul> -->
                                                 </td>
                                                 <td>
-                                                    <p class="price"><span class="amout">$320</span></p>
+                                                    <p class="price"><span class="amout">{{ entry.price }}</span></p>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <p class="price"><span class="amout">$23</span></p>
                                                 </td>
                                                 <td>
@@ -307,9 +320,10 @@
                                                 </td>
                                                 <td>
                                                     <p class="price"><span class="amout">$89</span></p>
-                                                </td>
+                                                </td> -->
                                             </tr>
-                                            <tr>
+                                            {% endfor %}
+                                            <!-- <tr>
                                                 <td>
                                                     <h6>Summer/Fall Season</h6>
                                                     <ul>
@@ -356,7 +370,7 @@
                                                 <td>
                                                     <p class="price"><span class="amout">$89</span></p>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </table>
                                     </div>
 

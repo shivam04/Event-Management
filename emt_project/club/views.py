@@ -68,8 +68,10 @@ def detail(request,slug):
 	print url
 	club_detail = client.get(url).json()
 	print club_detail
+	club_detail['slug'] = slug
 	context={
 	'detail':club_detail,
 	'title':club_detail['club_name']
 	}
+	request.session['venue']='club'
 	return render(request,"room-detail.html",context)

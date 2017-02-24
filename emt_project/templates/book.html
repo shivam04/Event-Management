@@ -55,24 +55,25 @@
                                     <ul>
                                         <li>
                                             <span>Check-In</span>
-                                            <span>Thu 06/03/2015</span>
+                                            <span>{{ book_data.date }}</span>
                                         </li>
                                         <li>
-                                            <span>Check-Out</span>
-                                            <span>Sat 06/06/2015</span>
+                                            <span>Entry</span>
+                                            <span>{{ book_data.entry }}</span>
                                         </li>
-                                        <li>
-                                            <span>Total Nights</span>
-                                            <span>2</span>
-                                        </li>
-                                        <li>
+
+                                        <!-- <li>
+                                            <span>Total</span>
+                                            <span>{{ book_data.price }}</span>
+                                        </li> -->
+                                        <!-- <li>
                                             <span>Total Rooms</span>
                                             <span>2 of 2</span>
                                         </li>
                                         <li>
                                             <span>Total Guests</span>
                                             <span>4 Adults 1 Children</span>
-                                        </li>
+                                        </li> -->
                                     </ul>
 
                                 </div>
@@ -80,13 +81,16 @@
                                 
                                 <!-- ROOM SELECT -->
                                 <div class="reservation-room-selected bg-gray">
-
+<div class="reservation-room-seleted_total bg-blue">
+                                        <label>TOTAL</label>
+                                        <span class="reservation-total">&#x20b9; {{ book_data.price }}</span>
+                                    </div>
                                     <!-- HEADING -->
-                                    <h2 class="reservation-heading">Select Rooms</h2>
+                                    <!-- <h2 class="reservation-heading">Select Rooms</h2> -->
                                     <!-- END / HEADING -->
 
                                     <!-- ITEM -->
-                                    <div class="reservation-room-seleted_item">
+                                   <!--  <div class="reservation-room-seleted_item">
 
                                         <h6>ROOM 1</h6> <span class="reservation-option">2 Adult, 1 Child</span>
 
@@ -123,13 +127,13 @@
                                         <div class="reservation-room-seleted_total-room">
                                             TOTAL Room 1
                                             <span class="reservation-amout">$470.00</span>
-                                        </div>
+                                        </div> -->
                                         
-                                    </div>
+                                   <!--  </div> -->
                                     <!-- END / ITEM -->
 
                                     <!-- ITEM -->
-                                    <div class="reservation-room-seleted_item">
+                                    <!-- <div class="reservation-room-seleted_item">
                                         <h6>ROOM 2</h6> <span class="reservation-option">2 Adult, 1 Child</span>
                                         <div class="reservation-room-seleted_name has-package">
                                             <h2><a href="#">LUXURY ROOM</a></h2>
@@ -166,14 +170,14 @@
                                             <span class="reservation-amout">$470.00</span>
                                         </div>
                                         
-                                    </div>
+                                    </div> -->
                                     <!-- END / ITEM -->
                                     
                                     <!-- TOTAL -->
-                                    <div class="reservation-room-seleted_total bg-blue">
+<!--                                     <div class="reservation-room-seleted_total bg-blue">
                                         <label>TOTAL</label>
                                         <span class="reservation-total">$470.00</span>
-                                    </div>
+                                    </div> -->
                                     <!-- END / TOTAL -->
 
                                 </div>
@@ -206,11 +210,11 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label>First Name<sup>*</sup></label>
-                                            <input type="text" value="{{ data.user_detail.first_name }}" class="input-text" disabled>
+                                            <input type="text" value="{{ data.user_detail.first_name }}" class="input-text" id="firstname" disabled>
                                         </div>
                                         <div class="col-sm-6">
                                             <label>Last Name<sup>*</sup></label>
-                                            <input type="text" class="input-text" value="{{ data.user_detail.last_name }}" disabled>
+                                            <input type="text" class="input-text" value="{{ data.user_detail.last_name }}" id="lastname" disabled>
                                         </div>
                                     </div>
 
@@ -236,11 +240,11 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label>Email Address<sup>*</sup></label>
-                                            <input type="text" class="input-text" value="{{ data.user_detail.email }}" disabled>
+                                            <input type="text" class="input-text" value="{{ data.user_detail.email }}" id="email">
                                         </div>
                                         <div class="col-sm-6">
                                             <label>Phone<sup>*</sup></label>
-                                            <input type="text" class="input-text" value="{{ data.contact_no }}" disabled>
+                                            <input type="text" class="input-text" value="{{ data.contact_no }}" id="contact">
                                         </div>
                                     </div>
 
@@ -282,7 +286,8 @@
                                         </li>
 
                                     </ul>
-                                    <button class="awe-btn awe-btn-13">PLACE ORDER</button>
+                                    <button class="awe-btn awe-btn-13" onclick="placeorder();">PLACE ORDER</button>
+                                    {% csrf_token %}
                                 </div>
 
                             </div>
@@ -296,5 +301,31 @@
 {% endif %}
         </section>
         <!-- END / RESERVATION -->
-        
+        <script type="text/javascript">
+            function placeorder(){
+                var firstname = $('#firstname').val();
+                var lastname = $('#lastname').val();
+                var email = $('#email').val();
+                var contact = $('#contact').val();
+                var token = $("input[name='csrfmiddlewaretoken']").val();
+                var paymentvalue = $("input[name='chose-bank']:checked").val();
+                 $.ajax({
+                    url: '/book/',
+                    data: {
+                      'firstname': firstname,
+                      'lastname':lastname,
+                      'email':email,
+                      'contact':contact,
+                      'paymentvalue':paymentvalue,
+                      //'token':token,
+                    },
+                    
+                    dataType: 'json',
+                    success: function (data) {
+                      alert(data.firstname);
+                      }
+                    }
+                  );
+            }
+        </script>
        {% endblock content %}

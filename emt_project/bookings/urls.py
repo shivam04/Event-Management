@@ -2,9 +2,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from .views import (
     book,
+    index,
 	)
 urlpatterns = [
-    #url(r'^$', ClubListAPIView.as_view(), name='list'),
+    url(r'^$', index, name='booking'),
     # url(r'locality/$',LocalityListAPIView.as_view(),name='locality_list'),
     # url(r'locality/(?P<locality_slug>[\w-]+)/$',LocalityDetailAPIView.as_view(),name='locality_detail'),
     # url(r'^(?P<city_slug>[\w-]+)/$',CityDetailAPIView.as_view(),name='detail')

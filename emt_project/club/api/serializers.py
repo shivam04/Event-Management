@@ -79,6 +79,7 @@ class ClubDetailSerializer(ModelSerializer):
 	class Meta:
 		model = Club
 		fields = [
+			'id',
 			'club_name',
 			'user_name',
 			'city',
