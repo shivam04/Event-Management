@@ -7,6 +7,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 class Status(models.Model):
 	status_name = models.CharField(max_length=50)
+	def __unicode__(self):
+		return self.status_name
+	def __str__(self):
+		return self.status_name
 
 class Booking(models.Model):
 	fromdate = models.DateTimeField(auto_now=False , auto_now_add=False)
@@ -15,6 +19,9 @@ class Booking(models.Model):
 	total = models.DecimalField(max_digits=8,decimal_places=2 )
 	date_time = models.DateTimeField(auto_now=True,auto_now_add=False)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	def __unicode__(self):
+		return str(self.id)
+
 
 
 
@@ -26,11 +33,16 @@ class OrderVenue(models.Model):
 
 class Payment_Method(models.Model):
 	payment_method = models.CharField(max_length=50)
+	def __unicode__(self):
+		return self.payment_method
+	def __str__(self):
+		return self.payment_method
 
 class Payment(models.Model):
 	invoice_number = models.CharField(max_length=50)
 	payment_method = models.ForeignKey(Payment_Method)
 	booking_id = models.ForeignKey(Booking)
+	tansaction_number = models.CharField(max_length=50)
 	amount = models.DecimalField(max_digits=8,decimal_places=2)
 	date_time = models.DateTimeField(auto_now=True,auto_now_add=False)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)

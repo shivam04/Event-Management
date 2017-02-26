@@ -61,6 +61,13 @@
                                             <span>Entry</span>
                                             <span>{{ book_data.entry }}</span>
                                         </li>
+                                        {% if not book_data.guests %}
+                                        {% else %}
+                                        <li>
+                                            <span>Guests</span>
+                                            <span>{{ book_data.guests }}</span>
+                                        </li>
+                                        {% endif %}
 
                                         <!-- <li>
                                             <span>Total</span>
@@ -263,7 +270,7 @@
                                     <ul class="option-bank">
                                         <li>
                                             <label class="label-radio">
-                                                <input type="radio" class="input-radio" name="chose-bank">
+                                                <input type="radio" class="input-radio" name="chose-bank" value="2">
                                                 Direct Bank Transfer
                                             </label>
                                             <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
@@ -271,14 +278,14 @@
 
                                         <li>
                                             <label class="label-radio">
-                                                <input type="radio" class="input-radio" name="chose-bank">
+                                                <input type="radio" class="input-radio" name="chose-bank" value="3">
                                                 Cheque Payment
                                             </label>
                                         </li>
 
                                         <li>
                                             <label class="label-radio">
-                                                <input type="radio" class="input-radio" name="chose-bank">
+                                                <input type="radio" class="input-radio" name="chose-bank" value="1">
                                                 Credit Card
                                             </label>
 
@@ -286,7 +293,7 @@
                                         </li>
 
                                     </ul>
-                                    <button class="awe-btn awe-btn-13" onclick="placeorder();">PLACE ORDER</button>
+                                    <button class="awe-btn awe-btn-13" onclick="placeorder();">Book Now</button>
                                     {% csrf_token %}
                                 </div>
 
@@ -308,7 +315,10 @@
                 var email = $('#email').val();
                 var contact = $('#contact').val();
                 var token = $("input[name='csrfmiddlewaretoken']").val();
-                var paymentvalue = $("input[name='chose-bank']:checked").val();
+                var paymentmethod = $("input[name='chose-bank']:checked").val();
+                if(paymentmethod){
+                    console.log(paymentmethod);
+
                  $.ajax({
                     url: '/book/',
                     data: {
@@ -316,16 +326,26 @@
                       'lastname':lastname,
                       'email':email,
                       'contact':contact,
-                      'paymentvalue':paymentvalue,
-                      //'token':token,
+                      'paymentmethod':paymentmethod,
+                      'venue':'{{ venue }}',
+                      'price':'{{ book_data.price }}',
+                      'entry':'{{ book_data.entry }}',
+                      'fromdate':'{{ book_data.date }}',
+                      'todate':'{{ book_data.date }}',
+                      'id':'{{ ven_ids }}',
                     },
                     
                     dataType: 'json',
                     success: function (data) {
+                        //alert("Ss");
                       alert(data.firstname);
                       }
                     }
                   );
+             }else{
+                console.log("s");
+             }
+                
             }
         </script>
        {% endblock content %}

@@ -69,10 +69,12 @@ def create_slug(instance ,new_slug=None):
 		return create_slug(instance, new_slug=new_slug)
 	return slug
 def pre_save_venue_receiver(sender, instance, *args, **kwargs):
-	city_qs = City.objects.filter(city_name=instance.venue_city).first()
+	print instance.venue_city
+	print instance.venue_locality
+	city_qs = City.objects.filter(city_slug=instance.venue_city).first()
 	city_qs.total_venues = city_qs.total_venues + 1
 	city_qs.save()
-	loclity_qs = Locality.objects.filter(locality_name=instance.venue_locality).first()
+	loclity_qs = Locality.objects.filter(locality_slug=instance.venue_locality).first()
 	loclity_qs.total_venues = loclity_qs.total_venues + 1
 	loclity_qs.save()
 

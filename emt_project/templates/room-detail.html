@@ -94,16 +94,26 @@
                                     <!-- <label>Depature</label>
                                     <input type="text" class="awe-calendar" placeholder="Departure Date"> -->
                                     <label>Entry Type</label>
-                                    <select name="entry" style="width: 210px;height:30px;">
+                                    <select id="entry-type" name="entry" style="width: 210px;height:30px;" onchange="changeprice();">
                                     {% for entry in detail.entry_type %}
-                                        <option value="{{ entry.entry_type }}">{{ entry.entry_type }}</option>
+                                        <option value="{{ entry.entry_type_r }}" data="{{ forloop.counter0 }}">{{ entry.entry_type }}</option>
                                     {% endfor %}
                                     </select>
-                                    <!-- <label>Guests</label>
-                                     <input type="text" name="guests"  placeholder="Number of Guests" style="width: 210px"> -->
+                                    <label>Price</label>
+                                     {% for entry in detail.entry_type %}
+                                        {% if forloop.counter0 == 0 %}
+                                            <input type="text" id="entry-{{ forloop.counter0 }}" style="width:210px;" value="{{ entry.price }}" disabled>
+                                        {% else %}
+                                            <input  type="text" id="entry-{{ forloop.counter0 }}" style="width:210px; display:none;" value="{{ entry.price }}" disabled>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div id="guests" style="display:none;">
+                                    <label>Guests</label>
+                                     <input type="text" name="guests"  placeholder="Number of Guests" style="width: 210px">
+                                     </div>
                                     <input type="submit" class="awe-btn awe-btn-13" value="Book Now"><!-- <button class="">Book Now</button></a> -->
                                 </form>
-                                    
+
                                 </div>
 
                             </div>
@@ -125,8 +135,8 @@
 
 
                         </div>
-                        <div class="col-md-9">
-                             <a name="overview"></a>
+                        <div id="overview" class="col-md-9">
+                             <!-- <a name="overview"></a> -->
                              <h1 style="color: rgb(52, 74, 113);"><u>Overview</u></h1>
                              <h5 class='text-uppercase'>Reservation of party places </h5>
 
@@ -956,6 +966,30 @@
         </section>
         <!-- END / SHOP DETAIL -->
 
+<script type="text/javascript">
 
+    function changeprice() {
+        var len = $('select#entry-type option').length
+        //console.log(len);
+        var s = $('#entry-type').prop('selectedIndex');
+        var k = $('#entry-type').val();
+        console.log(k);
+        if(k==5){
+
+            $('#guests').css('display','block');
+        }else{
+             $('#guests').css('display','none');
+        }
+        //console.log(s);
+        for (var i = len - 1; i >= 0; i--) {
+            if(i==s){
+                $('#entry-'+s).css('display','block');        
+            }else{
+                $('#entry-'+i).css('display','none');
+            }
+        }
+        
+    }
+</script>
 
       {% endblock content %}

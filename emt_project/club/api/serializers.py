@@ -8,6 +8,7 @@ from club.models import (
 	Club,
 	Entry_rate,
 	Service,
+	Entry_Type,
 	)
 from venues.api.serializers import VenuesListSerializer
 import json
@@ -101,9 +102,18 @@ class ClubDetailSerializer(ModelSerializer):
 		return ServiceSerializer(obj.get_service(),many=True).data
 
 class EntrySerializer(ModelSerializer):
+	entry_type = SerializerMethodField()
 	class Meta:
 		model = Entry_rate
-		fields = '__all__'
+		fields = [
+		'id',
+		'price',
+		'club_name',
+		'entry_type_r',
+		'entry_type',
+		]
+	def get_entry_type(self,obj):
+		return Entry_Type.objects.filter(type_entry=obj.entry_type_r).first().type_entry
 class ServiceSerializer(ModelSerializer):
 	class Meta:
 		model = Service

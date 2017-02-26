@@ -48,15 +48,18 @@ class ClubListAPIView(ListAPIView):
         c_query = self.request.GET.get("city")
         l_query = self.request.GET.get("locality")
         queryset_list = Club.objects.all() #super(PostListAPIView, self).get_queryset(*args, **kwargs)
-        
+        #print queryset_list
         if c_query and l_query:
             c_query = str(c_query).strip()
             l_query = str(l_query).strip()
+            print c_query,l_query
             queryset = []
             for query in queryset_list:
                 city =  query.get_city()
+
                 city = str(city).strip()
                 locality = str(query.get_locality()).strip()
+                print city,locality
                 if city == c_query and locality == l_query:
                     queryset.append(query)
                 #print query

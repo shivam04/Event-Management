@@ -17,9 +17,11 @@ class Club(models.Model):
 
 	#obj = ClubManager()
 	def __unicode__(self):
+		#print "unicode_club",type(self.club_name)
 		return self.club_name			
 
 	def __str__(self):
+		#print "str_club",type(self.club_name)
 		return self.club_name
 
 	def create_venue(self):
@@ -31,9 +33,10 @@ class Club(models.Model):
 		b.save()
 		return b
 	def get_city(self):
-		#print self.id
+		#print "id",self.id
 		city_filter = Venues.objects.filter(object_id=self.id)
 		city_filter = city_filter.first()
+		print city_filter
 		return city_filter.venue_city
 	def get_locality(self):
 		locality_filter = Venues.objects.filter(object_id=self.id)
@@ -49,21 +52,33 @@ class Club(models.Model):
 	# def children(self):
 	# 	return Locality.objects.filter(service_name=self.id)
 
-class Entry_rate(models.Model):
-	entry_type = models.CharField(max_length=20)
-	club_name = models.ForeignKey(Club)
-	price = models.IntegerField(default=0)
-	# locality_slug = models.SlugField(unique=True,default=None)
+
+class Entry_Type(models.Model):
+	type_entry = models.CharField(max_length=50)
+
 	def __unicode__(self):
-		return self.entry_type
+		#print "unicode_entry",type(self.type_entry)
+		return self.type_entry
 
 	def __str__(self):
-		return self.entry_type
+		#print "str_entry",type(self.type_entry)
+		return self.type_entry
+
+class Entry_rate(models.Model):
+	club_name = models.ForeignKey(Club)
+	entry_type_r = models.ForeignKey(Entry_Type)
+	price = models.IntegerField(default=0)
+	# locality_slug = models.SlugField(unique=True,default=None)
+	# def __unicode__(self):
+	# 	return self.entry_type_r
+
+	# def __str__(self):
+	# 	return self.entry_type_r
 
 	# def children(self):
 	# 	return Venues.objects.filter(venue_locality=self.id,venue_city=self.city_name)
 
-	
+
 
 class Service(models.Model):
 	service_name = models.CharField(max_length=50)
@@ -74,6 +89,8 @@ class Service(models.Model):
 
 	def __str__(self):
 		return self.service_name
+
+
 
 	# def children(self):
 	# 	return Address.objects.filter(venue=self.id)
