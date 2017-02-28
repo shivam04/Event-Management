@@ -525,7 +525,38 @@ src="https://www.facebook.com/tr?id=1031554816897182&amp;ev=PageView&amp;noscrip
         </div>
         </div>
         <div class="tab-pane" id="tab3" style="height: 395px">
-            <p>Data 3.</p>
+             <div class="row">
+                      <div class="well" style="position: absolute;left: 20px; right: 20px;">
+                          <form id="registerForm"  novalidate="novalidate" method="POST" action="{% url 'accounts:corporate-register' %}">{% csrf_token %}
+                                <div class="form-group"> 
+                                  <label for="username" class="control-label">Enter Information</label> </br></br>
+                                  <h6 style="color:red;display:none;" id="req-user">*</h6><input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter your user name" placeholder="User name" ><br>
+                                  
+                                  <input type="text" class="form-control" id="firstname" name="firstname" value="" required="" title="Please enter your first name" placeholder="First name" style="width: 180px; float:left; margin-right: 20px">
+                                  <input type="text" class="form-control" id="lastname" name="lastname" value="" required="" title="Please enter your last name" placeholder="Last name" style="width: 180px;float:left;"> </br></br></br></br>
+                                  <input type="text" class="form-control" id="contact" name="contact" value="" required="" title="Please enter your contact number" placeholder="Contact number" style="width: 150px; margin-right: 20px;float:left;">
+                                   <h6 style="color:red;display:none;" id="req-email">*</h6><input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter your email address" placeholder="email address" style="width: 210px;float:left;"></br></br
+                                  <span class="help-block"></span>
+                                </div> </br>
+                              <div class="form-group">
+                              <input type="text" class="form-control" id="aadhar" name="aadhar" value="" required="" title="Please enter your aadhar card number" placeholder="Addhar Number" ><br>
+                              <input type="text" class="form-control" id="companyid" name="companyid" value="" required="" title="Please enter your company id" placeholder="Company ID" ><br>
+                                <!--   <label for="password" class="control-label">Password</label> -->
+                                  <h6 style="color:red;display:none;" id="req-pwd">*</h6><input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" placeholder="Enter your password">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" name="remember" id="remember"> Remember login
+                                  </label>
+                                  <p class="help-block">(if this is a private computer)</p>
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block" name="SIGNUPSUBMIT">Register</button>
+
+                          </form>
+                      </div>
+        </div>
         </div>
         </div>
         </div>

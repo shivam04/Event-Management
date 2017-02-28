@@ -109,7 +109,7 @@
                                     {% endfor %}
                                     <div id="guests" style="display:none;">
                                     <label>Guests</label>
-                                     <input type="text" name="guests"  placeholder="Number of Guests" style="width: 210px">
+                                     <input type="text" name="guests"  placeholder="Number of Guests(Not More Than 8)" style="width: 210px" >
                                      </div>
                                     <input type="submit" class="awe-btn awe-btn-13" value="Book Now"><!-- <button class="">Book Now</button></a> -->
                                 </form>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                 <div class="room-detail_tab">
+                <!--  <div class="room-detail_tab">
                     
                     <div class="row">
                         <div class="col-md-3" style="position:;">
@@ -135,12 +135,12 @@
 
 
                         </div>
-                        <div id="overview" class="col-md-9">
+                        <div id="overview" class="col-md-9"> -->
                              <!-- <a name="overview"></a> -->
-                             <h1 style="color: rgb(52, 74, 113);"><u>Overview</u></h1>
+                           <!--   <h1 style="color: rgb(52, 74, 113);"><u>Overview</u></h1>
                              <h5 class='text-uppercase'>Reservation of party places </h5>
 
-                                        <p>{{ detail.description }}</p>
+                                        <p>{{ detail.description }}</p> -->
 
                                         <!-- <div class="row">
                                             <div class="col-xs-6 col-md-4">
@@ -160,9 +160,9 @@
                                                     <li>Iron/ironing board upon request</li>
                                                 </ul>
                                             </div>
-                                        </div> --> </br></br></br></br>
+                                        </div> --> <!-- </br></br></br></br> -->
                                    <!-- amenities --> 
-                                    <a name="amenities"></a>
+                                <!--     <a name="amenities"></a>
                                     </br></br></br>
                                     <h1 style="color: rgb(52, 74, 113);"><u>Amenities</u></h1>
                                 <p>Located in the heart of Aspen with a unique blend of contemporary luxury and historic heritage, deluxe accommodations, superb amenities, genuine hospitality and dedicated service for an elevated experience in the Rocky Mountains.</p>
@@ -171,14 +171,14 @@
                                         {% for service in detail.services %}
                                             <div class="col-xs-6 col-lg-4">
 
-                                                <h6>{{ service.service_name }}</h6>
+                                                <h6>{{ service.service_name }}</h6> -->
                                                 <!-- <ul>
                                                     <li>Oversized work desk</li>
                                                     <li>Hairdryer</li>
                                                     <li>Iron/ironing board upon request</li>
                                                 </ul> -->
-                                            </div>
-                                        {% endfor %}
+                                           <!--  </div>
+                                        {% endfor %} -->
                                            <!--  <div class="col-xs-6 col-lg-4">
                                                 <h6>KITCHEN ROOM</h6>
                                                 <ul>
@@ -223,13 +223,13 @@
                                                     <li>Private concierge</li>
                                                 </ul>
                                             </div> -->
-                                        </div></br></br></br></br>
-                                           <!-- end of aminities --> 
-                                           <a name="package"></a>
-                                           </br></br></br>
+<!--                                         </div></br></br></br></br>
+ -->                                           <!-- end of aminities --> 
+                                           <!-- <a name="package"></a>
+                                           </br></br></br> -->
                                            <!-- packages -->
 
-                                     <div class="room-detail_package">
+                                    <!--  <div class="room-detail_package">
 
                                         <h1 style="color: rgb(52, 74, 113);"><u>Packages</u></h1>
                                        <div class="room-package_item">
@@ -237,14 +237,14 @@
                                             <div class="row">
                                                 <div class="col-sm-6"> 
                                                 
-                                                <h4><a href="#">REGULAR</a></h4>
+                                                <h4><a href="#">REGULAR</a></h4> -->
                                                 <!-- <p>3 and a half Hours of service from start time </br>
                                                     Private DJ, Private Bar, Private Area. Unlimited Service of selective brands. </br> 
                                                     IMFL+ snacks package. Select alcohol & food. </br>
                                                     Maximum no. of guests depends on requirement. </br>
                                                     Extra Person Charge: Rs.5,000.</p>  -->
 
-                                               
+                                            <!--    
                                             </div>
                                         </div>
                                         </div>
@@ -255,14 +255,14 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                 <a name="package"></a>
-                                                <h4><a href="#">REGULAR</a></h4>
+                                                <h4><a href="#">REGULAR</a></h4> -->
                                                 <!-- <p>3 and a half Hours of service from start time </br>
                                                     Private DJ, Private Bar, Private Area. Unlimited Service of selective brands. </br> 
                                                     IMFL+ snacks package. Select alcohol & food. </br>
                                                     Maximum no. of guests depends on requirement. </br>
                                                     Extra Person Charge: Rs.5,000.</p>  -->
 
-                                               
+                                         <!--       
                                             </div>
                                         </div>
                                         </div>
@@ -273,14 +273,14 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                 <a name="package"></a>
-                                                <h4><a href="#">REGULAR</a></h4>
+                                                <h4><a href="#">REGULAR</a></h4> -->
                                                 <!-- <p>3 and a half Hours of service from start time </br>
                                                     Private DJ, Private Bar, Private Area. Unlimited Service of selective brands. </br> 
                                                     IMFL+ snacks package. Select alcohol & food. </br>
                                                     Maximum no. of guests depends on requirement. </br>
                                                     Extra Person Charge: Rs.5,000.</p>  -->
 
-                                               
+                                           <!--     
                                             </div>
                                         </div>
                                         </div>
@@ -288,11 +288,11 @@
                                         
                                     </div> 
                             
-                                    </br></br></br></br></br></br></br>
+                                    </br></br></br></br></br></br></br> -->
 
                                             <!-- end of package -->
                                             <!-- rates -->
-                                        <a name="rates"></a>
+                                        <!-- <a name="rates"></a>
                                         <h1 style="color: rgb(52, 74, 113) ;"><u>Rates</u></h1>
 
                                          <div class="room-detail_rates">
@@ -300,25 +300,25 @@
                                             <thead>
                                                 <tr>
                                                     <th>Entry Type</th>
-                                                    <th>Rate</th>
+                                                    <th>Rate</th> -->
                                                     <!-- <th>Weekend Night</th>
                                                     <th>Weekly</th>
                                                     <th>Monthly</th>
                                                     <th>Event</th> -->
-                                                </tr>
+                                                <!-- </tr>
                                             </thead>
                                             {% for entry in detail.entry_type %}
                                             <tr>
                                                 <td>
                                                     <h6>{{ entry.entry_type }}</h6>
-                                                    <!-- <ul>
+                                                    <ul>
                                                         <li>Jun 1 - Aug 31</li>
                                                         <li>3 night minimum stay</li>
-                                                    </ul> -->
+                                                    </ul>
                                                 </td>
                                                 <td>
                                                     <p class="price"><span class="amout">{{ entry.price }}</span></p>
-                                                </td>
+                                                </td> -->
                                                 <!-- <td>
                                                     <p class="price"><span class="amout">$23</span></p>
                                                 </td>
@@ -331,8 +331,8 @@
                                                 <td>
                                                     <p class="price"><span class="amout">$89</span></p>
                                                 </td> -->
-                                            </tr>
-                                            {% endfor %}
+                                            <!-- </tr>
+                                            {% endfor %} -->
                                             <!-- <tr>
                                                 <td>
                                                     <h6>Summer/Fall Season</h6>
@@ -381,21 +381,21 @@
                                                     <p class="price"><span class="amout">$89</span></p>
                                                 </td>
                                             </tr> -->
-                                        </table>
-                                    </div>
+                                        <!-- </table>
+                                    </div> -->
 
                                             <!-- end of rates -->
 
                                             
 
-                        </div>
+                       <!--  </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- END / DETAIL -->
                 
                 <!-- TAB -->
-               <!--  <div class="room-detail_tab">
+                <div class="room-detail_tab">
                     
                     <div class="row">
                         <div class="col-md-3">
@@ -415,9 +415,9 @@
 
                                     <div class="room-detail_overview">
                                         <h5 class='text-uppercase'>reservation of party places </h5>
-                                        <p>Be it a night out with your friends or birthday/ anniversary/ wedding celebration, reserve a table & don't worry about standing at the crowded bar to get your drink. Simply chill and enjoy our services.</p>
+                                        <p>{{ detail.description }}</p>
 
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-xs-6 col-md-4">
                                                 <h6>VIP TABLE</h6>
                                                 <ul>
@@ -435,7 +435,7 @@
                                                     <li>Iron/ironing board upon request</li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
 
@@ -449,15 +449,17 @@
                                         <p>Located in the heart of Aspen with a unique blend of contemporary luxury and historic heritage, deluxe accommodations, superb amenities, genuine hospitality and dedicated service for an elevated experience in the Rocky Mountains.</p>
                                         
                                         <div class="row">
+                                        {% for service in detail.services %}
                                             <div class="col-xs-6 col-lg-4">
-                                                <h6>LIVING ROOM</h6>
-                                                <ul>
+                                                <h6>{{ service.service_name }}</h6>
+                                                <!-- <ul>
                                                     <li>Oversized work desk</li>
                                                     <li>Hairdryer</li>
                                                     <li>Iron/ironing board upon request</li>
-                                                </ul>
+                                                </ul> -->
                                             </div>
-                                            <div class="col-xs-6 col-lg-4">
+                                        {% endfor %}
+                                            <!-- <div class="col-xs-6 col-lg-4">
                                                 <h6>KITCHEN ROOM</h6>
                                                 <ul>
                                                     <li>AM/FM clock radio</li>
@@ -500,7 +502,7 @@
                                                     <li>24-hour Concierge service</li>
                                                     <li>Private concierge</li>
                                                 </ul>
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                     </div>
@@ -579,26 +581,27 @@
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th>Rate Period</th>
-                                                    <th>Nightly</th>
-                                                    <th>Weekend Night</th>
+                                                    <th>Entry Type</th>
+                                                    <th>Rate</th>
+                                                    <!-- <th>Weekend Night</th>
                                                     <th>Weekly</th>
                                                     <th>Monthly</th>
-                                                    <th>Event</th>
+                                                    <th>Event</th> -->
                                                 </tr>
                                             </thead>
+                                             {% for entry in detail.entry_type %}
                                             <tr>
                                                 <td>
-                                                    <h6>Spring/Summer Season</h6>
-                                                    <ul>
+                                                    <h6>{{ entry.entry_type }}</h6>
+                                                    <!-- <ul>
                                                         <li>Jun 1 - Aug 31</li>
                                                         <li>3 night minimum stay</li>
-                                                    </ul>
+                                                    </ul> -->
                                                 </td>
                                                 <td>
-                                                    <p class="price"><span class="amout">$320</span></p>
+                                                    <p class="price"><span class="amout">{{ entry.price }}</span></p>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <p class="price"><span class="amout">$23</span></p>
                                                 </td>
                                                 <td>
@@ -609,9 +612,10 @@
                                                 </td>
                                                 <td>
                                                     <p class="price"><span class="amout">$89</span></p>
-                                                </td>
+                                                </td> -->
                                             </tr>
-                                            <tr>
+                                            {% endfor %}
+                                            <!-- <tr>
                                                 <td>
                                                     <h6>Summer/Fall Season</h6>
                                                     <ul>
@@ -658,14 +662,14 @@
                                                 <td>
                                                     <p class="price"><span class="amout">$89</span></p>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </table>
                                     </div>
 
-                                </div> -->
+                                </div>
                                 <!-- END / RATES -->
 
-                                <!-- 
+                                
                                 <div class="tab-pane fade" id="calendar">
 
                                     <div class="room-detail_calendar-wrap row">
@@ -844,7 +848,7 @@
                                     </div>
 
                                 </div>
-                                -->
+                               
 
                             </div>
                         </div>

@@ -116,3 +116,30 @@ def login_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect("/")
+
+def corporate_register(request):
+	if request.method=="POST":
+		firstname = request.POST['firstname']
+		lastname = request.POST['lastname']
+		contact = request.POST['contact']
+		email = request.POST['email']
+		password = request.POST['password']
+		username = request.POST['username']
+		csrftoken = request.POST.get("csrfmiddlewaretoken") 
+		aadhar = request.POST['aadhar']
+		companyid = request.POST['companyid']
+		user = User(username=username,first_name=firstname,last_name=lastname,email=email)
+		user.set_password(password)
+		user.save()
+		corporateuser = CorporateUser(user=user,comapny_name=companyid,
+			aadhar_card=aadhar,contact_no=contact)
+		corporateuser.save()
+		if corporateuser:
+			user = authenticate(username=username,password=password)
+			login(request,user)
+			if request.user.is_authenticated():
+				return redirect("/corporate/")
+		else:
+			return redirect("/")
+	else:
+		return redirect("/")

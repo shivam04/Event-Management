@@ -67,7 +67,7 @@ def create_pdf(data,request):
 	#print pdf.err
 	if not pdf.err:
 	    response = HttpResponse(result.getvalue(), content_type='application/pdf')
-	    response['Content-Disposition'] = 'attachment; filename="k.pdf"'
+	    response['Content-Disposition'] = 'attachment; filename="media/k24.pdf"'
 	    return response
 	return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 def book(request,slug):

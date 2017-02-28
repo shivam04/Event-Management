@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^api/auth/token/', obtain_jwt_token),
     url(r'^api/verify/token/', verify_jwt_token),
     url(r'^api/refresh/token/', refresh_jwt_token),
+    url(r'^corporate/',include("corporate_user.urls",namespace="corporate")),
     #url(r'^venue/',list_view),
     url(r'^accounts/',include("accounts.urls",namespace="accounts")),
     url(r'^api/venues/',include("venues.api.urls",namespace='venue-api')),
@@ -35,6 +36,7 @@ urlpatterns = [
     url(r'^book/',include("bookings.urls",namespace="book")),
     #url(r'^api/venue/',CityListApiView.as_view())
     url(r'^',include("search.urls",namespace="search")),
+    url(r'^coruser/',include("corporate_user.urls",namespace="club")),
 ]
 
 if settings.DEBUG:
