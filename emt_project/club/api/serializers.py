@@ -39,6 +39,7 @@ class ClubCreateUpdateSerializer(ModelSerializer):
 	        'club_name',
 	        'user',
 	        'venue',
+	        'description',
 	    ]
 	def get_venue(self,obj):
 		return VenuesListSerializer(obj.create_venue()).data

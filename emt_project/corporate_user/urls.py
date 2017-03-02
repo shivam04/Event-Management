@@ -3,6 +3,7 @@ from django.contrib import admin
 from .views import *
 urlpatterns = [
     url(r'^$', index, name='index'),
+    url(r'^clubcreate/(?P<pk>\d+)$', club_create, name='club_create'),
     # url(r'locality/$',LocalityListAPIView.as_view(),name='locality_list'),
     # url(r'locality/(?P<locality_slug>[\w-]+)/$',LocalityDetailAPIView.as_view(),name='locality_detail'),
     # url(r'^(?P<city_slug>[\w-]+)/$',CityDetailAPIView.as_view(),name='detail')

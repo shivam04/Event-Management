@@ -24,19 +24,20 @@ class AddressListSerializer(ModelSerializer):
 		]
 
 class VenueCreateUpdateSerializer(ModelSerializer):
-	#address = SerializerMethodField()
+	address = SerializerMethodField()
 	class Meta:
 	    model = Venues
 	    fields = [
+	    	'id',
 	        'venue_name',
 	        'content_type',
 	        'venue_city',
 	        'venue_locality',
 	        'object_id',
-	        #'address',
+	        'address',
 	    ]
-	#def get_address(self,obj):
-		#return AddressListSerializer(obj.children(),many=True).data
+	def get_address(self,obj):
+		return AddressListSerializer(obj.children(),many=True).data
 # venue_update_url = HyperlinkedIdentityField(
 #         view_name='venue-api:update',
 #         lookup_field='id'

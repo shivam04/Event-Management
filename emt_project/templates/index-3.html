@@ -58,7 +58,7 @@
                                 <h2 class="heading">Clubbing</h2>
                                <p>Click here to register your Clubs</p>
                                <img src=' {% static "images/images2.png" %} ' alt="" style="height: 200px; width: 200px"></a></br>
-                                <a href="reg2c.html" class="awe-btn awe-btn-default">Register</a>
+                                <a href="{% url 'corporate:club_create' pk=1 %}" class="awe-btn awe-btn-default">Register</a>
                             </div>
                         </div>
                     </div>
