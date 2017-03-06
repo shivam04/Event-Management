@@ -13,7 +13,10 @@ from django.utils.crypto import get_random_string
 import cStringIO as StringIO
 from xhtml2pdf import pisa
 from django.template.loader import get_template
+from django.template import Context
 from cgi import escape
+from venues.models import *
+import time
 def index(request):
 	#print request.GET.get('firstname')
 	data = {
@@ -34,6 +37,8 @@ def index(request):
 	book = Booking(fromdate=data['fromdate'],todate=data['todate'],total=data['price'],
 		user=request.user,status_id=status)
 	book.save()
+	date_time = str(book.date_time)
+	print date_time
 	last_invoice = Payment.objects.all().order_by('id').last()
 	invoice_no = last_invoice.invoice_number
 	invoice_int = int(invoice_no)
@@ -46,28 +51,54 @@ def index(request):
 		tansaction_number=tansaction_number,amount=data['price'],user=request.user)
 	payment.save()
 	content_type = ContentType.objects.filter(model=data['venue']).first()
-	print content_type.id
+	#print content_type.id
 	object_id = data['id']
 	order_venue = OrderVenue(venue_type=content_type,object_id=object_id,booking_id=book)
 	order_venue.save()
-	print book.id
-	print payment.id
-	print order_venue.id
-	response = create_pdf(data,request)
+	#print book.id
+	#print payment.id
+	#print order_venue.id
+	#print object_id
+	#print object_id
+	venues = Venues.objects.filter(content_type=content_type,object_id=object_id).first()
+	#print venues.id
+	address = Address.objects.filter(venue=venues.id).first()
+	print address
+	print data['venue']
+	venue_name = Club.objects.filter(id=data['id']).first().club_name
+	print venue_name
+	print address.address_line
+	date = date_time.split()[0]
+	print date
+	time = date_time.split()[1].split('.')[0]
+	print time
+	context = {
+	'venue':venue_name,
+	'address':address,
+	'user':request.user,
+	'date':date,
+	'time':time,
+	'amount':data['price'],
+	'invoice_number':invoice_number,
+
+	}
+	response = create_pdf(data,request,context)
 	#print response
 	return response
-def create_pdf(data,request):
-	template = get_template("ss.html")
+def create_pdf(data,request,context):
+	template = get_template("invoice.html")
+	c = Context(context)
+	#rendered = t.render(c)
 	#print template.render() 
 	#context = Context(context_dict)
-	html  = template.render()
+	html  = template.render(c)
 	result = StringIO.StringIO()
-	print result.getvalue()
+	#print result.getvalue()
 	pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
 	#print pdf.err
 	if not pdf.err:
 	    response = HttpResponse(result.getvalue(), content_type='application/pdf')
-	    response['Content-Disposition'] = 'attachment; filename="media/k24.pdf"'
+	    response['Content-Disposition'] = 'attachment; filename="media/k2564.pdf"'
 	    return response
 	return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 def book(request,slug):

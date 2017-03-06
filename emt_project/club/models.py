@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from venues.models import Venues,City,Locality
 from django.contrib.auth.models import User
 from django.conf import settings
-from venues.models import Venues
+from venues.models import Venues,Address
 
 class Club(models.Model):
 	club_name = models.CharField(max_length=50)
@@ -49,6 +49,10 @@ class Club(models.Model):
 		return Entry_rate.objects.filter(club_name=self.id)
 	def get_service(self):
 		return Service.objects.filter(club_name=self.id)
+	def get_address(self):
+		#print self.id
+		#print Address.objects.filter(venue=self.id).first()
+		return Address.objects.filter(venue=self.id)
 	# def children(self):
 	# 	return Locality.objects.filter(service_name=self.id)
 

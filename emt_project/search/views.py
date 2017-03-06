@@ -3,6 +3,7 @@ from venues.models import City,Locality
 from rest_framework.test import RequestsClient,APIRequestFactory
 from django.http import HttpResponse , HttpResponseRedirect , Http404
 import json
+import time
 # Create your views here.
 def index(request):
 	if request.session.has_key('Error'):
@@ -107,3 +108,16 @@ def about(request):
 
 def contact(request):
 	return render(request,'contact.html',{'title':'Contact'})
+
+def test(request):
+	context = {
+	'venue':'sd',
+	'address':'address',
+	'user':request.user,
+	'date':time.strftime("%H:%M:%S"),
+	'time':time.strftime("%I:%M:%S"),
+	'amount':"data['price']",
+	'invoice_number':'invoice_number',
+
+	}
+	return render(request,"invoice.html",context)

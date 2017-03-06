@@ -10,7 +10,7 @@ from club.models import (
 	Service,
 	Entry_Type,
 	)
-from venues.api.serializers import VenuesListSerializer
+from venues.api.serializers import VenuesListSerializer,AddressListSerializer
 import json
 
 def filter_by_city_serializer(city=None,locality=None):
@@ -78,6 +78,7 @@ class ClubDetailSerializer(ModelSerializer):
 	locality = SerializerMethodField()
 	entry_type = SerializerMethodField()
 	services = SerializerMethodField()
+	address = SerializerMethodField()
 	class Meta:
 		model = Club
 		fields = [
@@ -90,6 +91,7 @@ class ClubDetailSerializer(ModelSerializer):
 			'club_slug',
 			'entry_type',
 			'services',
+			'address',
 		]
 	def get_user_name(self, obj):
 		return obj.user.username
@@ -101,7 +103,8 @@ class ClubDetailSerializer(ModelSerializer):
 		return EntrySerializer(obj.get_entry_rates(),many=True).data
 	def get_services(self,obj):
 		return ServiceSerializer(obj.get_service(),many=True).data
-
+	def get_address(self,obj):
+		return AddressListSerializer(obj.get_address(),many=True).data
 class EntrySerializer(ModelSerializer):
 	entry_type = SerializerMethodField()
 	class Meta:

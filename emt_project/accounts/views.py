@@ -34,7 +34,7 @@ def register(request):
 				    'email':email,
 				    'password':password,
 				}, headers={'X-CSRFToken': csrftoken})
-		# print response.status_code
+		print response.status_code
 		# print response.json()
 		if response.status_code==201:
 			user = response.json()
@@ -45,8 +45,9 @@ def register(request):
 			response_n = client.post(nurl, json={
 				    'user': user_id,
 				    'aadhar_card':aadhar,
+				    'contact_no':contact,
 				}, headers={'X-CSRFToken': csrftoken})
-			# print response_n.status_code
+			print response_n.status_code
 			if response_n.status_code == 201:
 				return redirect("/")
 		elif response.status_code == 400:

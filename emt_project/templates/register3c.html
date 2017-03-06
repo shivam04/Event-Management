@@ -15,18 +15,18 @@
     </div>
     </br></br>
 </br>    
-    <form id="defaultForm" method="post" class="form-horizontal" action="target.php" >
-                                        <!-- Bootstrap Upload Control - START -->
+    <form id="defaultForm" method="post" class="form-horizontal" action="" >
+                   {% csrf_token %}                     <!-- Bootstrap Upload Control - START -->
 <div class="container"  >
 <div class="col-md-2"></div>
 <label class="col-lg-3 control-label" style="font-size: 30px">Upload Images Of Your Venue</label>
     <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
+       <!--  <form method="post" enctype="multipart/form-data">
             <input type="file" id="files" name="files" multiple="multiple"/>
             <p ></br>
                 <input type="submit" value="Upload Files" class="btn btn-md btn-primary" />
             </p>
-        </form>
+        </form> -->
     </div>
     
 </div>
@@ -53,14 +53,14 @@
                                     <label class="checkbox-inline" for="singlechk">
 
                                         <input type="checkbox" name="single" id="singlechk" value="Single" onclick="func1(this)" />Single
-                                        <input type="text" id="single" disabled="disabled" placeholder="fee/single" />
+                                        <input type="text" id="single" disabled="disabled" placeholder="fee/single" name="single_fee"/>
                                     </label>
                                 </div>
                                 <div class="checkbox" style="font-size: 20px">
                                  <span class="  glyphicon glyphicon-menu-left"></span>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="Couple" id="couplechk" value="Couple" onclick="func2(this)" />Couple
-                                         <input type="text" id="couple" disabled="disabled" placeholder="fee/couple" />
+                                        <input type="checkbox" name="couple" id="couplechk" value="Couple" onclick="func2(this)" />Couple
+                                         <input type="text" id="couple" disabled="disabled" placeholder="fee/couple" name="couple_fee"/>
                                     </label>
                                 </div>
                                 <script type="text/javascript">
@@ -108,7 +108,7 @@
                                   <span class=" glyphicon glyphicon-cutlery"></span>
                                     <label class="checkbox-inline"  for="ser2">
 
-                                        <input type="checkbox" name="s1" value="Lunch" id="ser2"  /> Lunch
+                                        <input type="checkbox" name="s2" value="Lunch" id="ser2"  /> Lunch
                                         
                                     </label>
                                 </div>
@@ -152,13 +152,13 @@
 
                           <div>
 
- <button type="button" class="btn btn-lg btn-success"  style="display: block; margin: 0 auto;">Confirm Registration</button>
+ <input type="submit" class="btn btn-lg btn-success"  style="display: block; margin: 0 auto;" value="Confirm Registration"/>
  </div
                         </div>
 
                     </form>
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
     // Generate a simple captcha
     function randomNumber(min, max) {
@@ -331,7 +331,7 @@ $(document).ready(function() {
 
   
 });
-</script>
+</script> -->
 
                     </div>
                 </div>
