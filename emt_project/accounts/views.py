@@ -12,7 +12,10 @@ from django.contrib.auth import(
 	login,
 	logout,
 	)
+from django.core.mail import send_mail,EmailMessage
+
 def register(request):
+	#server = smtplib.SMTP('smtp.gmail.com', 587)
 	client = RequestsClient()
 	if request.method=="POST":
 		host =  request.META['HTTP_HOST']
@@ -49,10 +52,21 @@ def register(request):
 				}, headers={'X-CSRFToken': csrftoken})
 			print response_n.status_code
 			if response_n.status_code == 201:
+				try:
+					send_mail(
+				    'Subject here',
+				    'Here is the message.',
+				    'sinhashivam04@gmail.com',
+				    [email],
+					)
+					print "yoyo"
+				except:
+					print "chod"
 				return redirect("/")
 		elif response.status_code == 400:
 			data = response.json()
 			request.session['Error'] = data
+
 			# data = response.json()
 			# data= json.loads(json.dumps(data))
 			# print data['username'][0]
