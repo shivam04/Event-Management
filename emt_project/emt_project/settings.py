@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'venues',
     'club',
     'bookings',
-    'corporate_user'
+    'corporate_user',
+    'event_management'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MIDDLEWARE_CLASSES = [

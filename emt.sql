@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2017 at 06:59 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Mar 28, 2017 at 12:01 PM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `emt`
@@ -26,13 +26,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts_corporateuser`
 --
 
-CREATE TABLE IF NOT EXISTS `accounts_corporateuser` (
-`id` int(11) NOT NULL,
+CREATE TABLE `accounts_corporateuser` (
+  `id` int(11) NOT NULL,
   `comapny_name` varchar(100) NOT NULL,
   `aadhar_card` varchar(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `contact_no` varchar(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_corporateuser`
@@ -50,12 +50,12 @@ INSERT INTO `accounts_corporateuser` (`id`, `comapny_name`, `aadhar_card`, `user
 -- Table structure for table `accounts_normaluser`
 --
 
-CREATE TABLE IF NOT EXISTS `accounts_normaluser` (
-`id` int(11) NOT NULL,
+CREATE TABLE `accounts_normaluser` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `aadhar_card` varchar(20) NOT NULL,
   `contact_no` varchar(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_normaluser`
@@ -65,7 +65,18 @@ INSERT INTO `accounts_normaluser` (`id`, `user_id`, `aadhar_card`, `contact_no`)
 (1, 1, '1234567890', '7770806859'),
 (2, 6, '1234556565623323', '2345678901'),
 (3, 8, '894561289465184', '7412014578'),
-(4, 10, '5465456465435', '9867545123');
+(4, 10, '5465456465435', '9867545123'),
+(5, 11, '8461532685', '7458963214'),
+(6, 12, '84612846512', '7412012120'),
+(7, 13, '586132456', '5588996633'),
+(8, 14, '654789645', '5588996633'),
+(9, 15, '2030105060', '7789564125'),
+(10, 16, '120120120120', '7845128956'),
+(11, 17, '4125631456', '4512020102'),
+(12, 18, '1020301020301020', '4512636952'),
+(13, 19, '1234567891234567', '4561245789'),
+(14, 20, '1020301020301020', '4256412012'),
+(15, 21, '1234567891234567', '7845128956');
 
 -- --------------------------------------------------------
 
@@ -73,8 +84,8 @@ INSERT INTO `accounts_normaluser` (`id`, `user_id`, `aadhar_card`, `contact_no`)
 -- Table structure for table `auth_group`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_group` (
-`id` int(11) NOT NULL,
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL,
   `name` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -84,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `auth_group` (
 -- Table structure for table `auth_group_permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_group_permissions` (
-`id` int(11) NOT NULL,
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -96,12 +107,12 @@ CREATE TABLE IF NOT EXISTS `auth_group_permissions` (
 -- Table structure for table `auth_permission`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_permission` (
-`id` int(11) NOT NULL,
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `content_type_id` int(11) NOT NULL,
   `codename` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `auth_permission`
@@ -170,7 +181,19 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (60, 'Can delete payment_ method', 20, 'delete_payment_method'),
 (61, 'Can add payment', 21, 'add_payment'),
 (62, 'Can change payment', 21, 'change_payment'),
-(63, 'Can delete payment', 21, 'delete_payment');
+(63, 'Can delete payment', 21, 'delete_payment'),
+(64, 'Can add emt_c', 22, 'add_emt_c'),
+(65, 'Can change emt_c', 22, 'change_emt_c'),
+(66, 'Can delete emt_c', 22, 'delete_emt_c'),
+(67, 'Can add category', 23, 'add_category'),
+(68, 'Can change category', 23, 'change_category'),
+(69, 'Can delete category', 23, 'delete_category'),
+(70, 'Can add services', 24, 'add_services'),
+(71, 'Can change services', 24, 'change_services'),
+(72, 'Can delete services', 24, 'delete_services'),
+(73, 'Can add package', 25, 'add_package'),
+(74, 'Can change package', 25, 'change_package'),
+(75, 'Can delete package', 25, 'delete_package');
 
 -- --------------------------------------------------------
 
@@ -178,8 +201,8 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 -- Table structure for table `auth_user`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_user` (
-`id` int(11) NOT NULL,
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL,
   `password` varchar(128) NOT NULL,
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
@@ -190,14 +213,14 @@ CREATE TABLE IF NOT EXISTS `auth_user` (
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `auth_user`
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$24000$zX15ohT2X9W5$W/HZl6F78LzvVhiCB12vBhJZfmpZDhmA8XMZUbFPA2A=', '2017-03-06 19:00:51.210000', 1, 'shivam', 'Shivam', 'Sinha', 'sinhashivam04@gmail.com', 1, 1, '2017-02-25 12:07:24.000000'),
+(1, 'pbkdf2_sha256$24000$zX15ohT2X9W5$W/HZl6F78LzvVhiCB12vBhJZfmpZDhmA8XMZUbFPA2A=', '2017-03-28 09:40:54.000000', 1, 'shivam', 'Shivam', 'Sinha', 'sinhashivam04@gmail.com', 1, 1, '2017-02-25 12:07:24.000000'),
 (2, '', NULL, 0, 'tanmay', 'Tanmay', 'Gadpayle', 'tanmay@w.com', 0, 1, '2017-02-28 17:50:48.758000'),
 (3, 'pbkdf2_sha256$24000$j4OC2HNydV12$YRQNJ5UGDqABKsQcRMsVdQkJxs6YhBuPQf8ruw5sFuA=', '2017-03-06 10:14:37.487000', 0, 'jaroli', 'Shubham', 'Jaroli', 'jaroli@jaroli.com', 0, 1, '2017-02-28 17:56:06.203000'),
 (4, 'pbkdf2_sha256$24000$zOzZGw28Uvv3$SXPh0VEIhjZwBMEckunI/1r1w0oAgoiu4E/n1aUlajA=', '2017-02-28 18:00:01.546000', 0, 'chahes', 'Chahes', 'Chopra', 'chahes@c.com', 0, 1, '2017-02-28 18:00:00.663000'),
@@ -206,7 +229,18 @@ INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `userna
 (7, 'pbkdf2_sha256$24000$nO778uSohufn$BqbaV1Z6ev7pKgyRlAMKs/26U0JgEeWx5nuWkWZEbxA=', NULL, 0, 'cat', 'sfd', 'ds', 'sdfs@ed.com', 0, 1, '2017-03-04 17:20:54.329000'),
 (8, 'pbkdf2_sha256$24000$RUdECHHtguu2$0mvu89TX5UVYtCwOFy9Gee/rVY2qhRADL8xYuHuhkiM=', '2017-03-04 17:23:44.591000', 0, 'billi', 'shd', 'dshv', 'ssdfs@ed.com', 0, 1, '2017-03-04 17:23:30.867000'),
 (9, 'pbkdf2_sha256$24000$4F6r2qYwCbxQ$SmA6mVGdYXNE//9g/b1hUdyTkjkX1qeaK5Ij8nmFpME=', '2017-03-06 10:11:54.188000', 0, 'chotu', 'Vaibhav', 'Khandelwal', 'vaibhavk77@gmail.com', 0, 1, '2017-03-06 10:11:53.498000'),
-(10, 'pbkdf2_sha256$24000$aLQtLDbupZNF$66CwKdB+soBIrucQQoiZnPxnaTMAsDvDIQmqlVzXo/8=', '2017-03-06 18:42:41.158000', 0, 'trk.tariqkhan@gmail.com', 'trk', 'trk', 'trk.tariqkhan@gmail.com', 0, 1, '2017-03-06 18:20:32.927000');
+(10, 'pbkdf2_sha256$24000$aLQtLDbupZNF$66CwKdB+soBIrucQQoiZnPxnaTMAsDvDIQmqlVzXo/8=', '2017-03-06 18:42:41.158000', 0, 'trk.tariqkhan@gmail.com', 'trk', 'trk', 'trk.tariqkhan@gmail.com', 0, 1, '2017-03-06 18:20:32.927000'),
+(11, 'pbkdf2_sha256$24000$R0HKMwSjSNzl$aMgozMU47oFAIUteclWiUFENH5oV3CETQVOiIut+uec=', NULL, 0, 'mrjs', 'dgs', 'efdv', 'df@efd.com', 0, 1, '2017-03-08 04:39:22.000000'),
+(12, 'pbkdf2_sha256$24000$XK9f3FK8Jhxd$4tLGz8qitSTN6ClKKIZw0e+gN4jrALQFy1T1Yp5kOGs=', NULL, 0, 'iopk', 'gdfc', 'fdv', 'fdgf@wrefdgf.com', 0, 1, '2017-03-08 04:43:06.000000'),
+(13, 'pbkdf2_sha256$24000$546wL1kVkRpd$R3+ZRHijoQ/JgKyRLUM/GVXjmL8eEI6jEFJ3H+1RWl4=', NULL, 0, 'kejriwal', 'fds', 'fd', 'dsf@fd.com', 0, 1, '2017-03-08 04:46:11.000000'),
+(14, 'pbkdf2_sha256$24000$zWGHosDeQEaN$qaL/2+Woop0md4U83jFEs8kJzpz72qa3yExPpQ3rdh8=', NULL, 0, 'dsd', 'f', 'f', 'shubham15.jaroli@gmail.com', 0, 1, '2017-03-08 04:47:54.000000'),
+(15, 'pbkdf2_sha256$24000$p1N1Nrquz9cZ$Cx1+AAXxNjAguiUq6M5G3MVI2WcU80rCUc8Eplk5z2w=', NULL, 0, 'cvbn', 'gbgf', 'fgfh', 'fcf@dgf.com', 0, 1, '2017-03-08 04:50:56.000000'),
+(16, 'pbkdf2_sha256$24000$CGlzYLkNyhGM$nvosEUppJMsOngYsvA5/dUSObmPP04LAPYm4kaJ2TEg=', NULL, 0, 'popo', 'dgfc', 'dsf', 'fdgf@wrefdgf.com', 0, 1, '2017-03-08 04:52:42.000000'),
+(17, 'pbkdf2_sha256$24000$dS0zImEwEnFC$9iPnXNfxz7yJImqXQoQVmTLoXSPDiWCWqoOPt/G3rfQ=', NULL, 0, 'arpit', 'Arpit', 'Khandelwal', 'arpit@arpit.com', 0, 1, '2017-03-08 04:58:28.000000'),
+(18, 'pbkdf2_sha256$24000$P2YTKhfZll5l$ZlzbtPaiAZ7OWHgT6ijlp6puMpteb7ZeQrfYX9jWcBo=', NULL, 0, 'shubham', 'sa', 'HQB', 'SXA@D.COM', 0, 1, '2017-03-08 05:15:37.000000'),
+(19, 'pbkdf2_sha256$24000$aoijW5hng9gq$7QyomhZjxy9DffzUd4c18khNm7iov01zHFJvBumvNW8=', NULL, 0, 'tmkc', 'sdasd', 'dsa', 'asd@as.com', 0, 1, '2017-03-08 05:16:57.000000'),
+(20, 'pbkdf2_sha256$24000$Lo935AnYM5v3$3cOmXYuPeMU/F0ZowzO281Zr5qvlAypZ7CugPaTHuOo=', NULL, 0, 'akhil', 'asda', 'dsd', 'sad@as.com', 0, 1, '2017-03-08 05:19:37.000000'),
+(21, 'pbkdf2_sha256$24000$CV1jcekfgBds$UoS1r5X86wsiDv1bSAjRRJ10NIwFMUCgeyYRJp1EfkM=', NULL, 0, 'bkc', 'sda', 'sas', 'as@SS.IN', 0, 1, '2017-03-08 05:21:01.000000');
 
 -- --------------------------------------------------------
 
@@ -214,8 +248,8 @@ INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `userna
 -- Table structure for table `auth_user_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_user_groups` (
-`id` int(11) NOT NULL,
+CREATE TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -226,8 +260,8 @@ CREATE TABLE IF NOT EXISTS `auth_user_groups` (
 -- Table structure for table `auth_user_user_permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `auth_user_user_permissions` (
-`id` int(11) NOT NULL,
+CREATE TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -238,15 +272,15 @@ CREATE TABLE IF NOT EXISTS `auth_user_user_permissions` (
 -- Table structure for table `bookings_booking`
 --
 
-CREATE TABLE IF NOT EXISTS `bookings_booking` (
-`id` int(11) NOT NULL,
+CREATE TABLE `bookings_booking` (
+  `id` int(11) NOT NULL,
   `fromdate` datetime(6) NOT NULL,
   `todate` datetime(6) NOT NULL,
   `total` decimal(8,2) NOT NULL,
   `date_time` datetime(6) NOT NULL,
   `status_id_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=215 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookings_booking`
@@ -466,7 +500,9 @@ INSERT INTO `bookings_booking` (`id`, `fromdate`, `todate`, `total`, `date_time`
 (211, '2017-03-20 14:30:00.000000', '2017-03-19 18:30:00.000000', '1500.00', '2017-03-06 19:04:22.021000', 1, 6),
 (212, '2017-03-20 14:30:00.000000', '2017-03-19 18:30:00.000000', '1500.00', '2017-03-06 19:06:41.627000', 1, 6),
 (213, '2017-03-20 14:30:00.000000', '2017-03-19 18:30:00.000000', '1500.00', '2017-03-06 19:06:42.483000', 1, 6),
-(214, '2017-03-20 14:30:00.000000', '2017-03-19 18:30:00.000000', '1500.00', '2017-03-06 19:06:42.823000', 1, 6);
+(214, '2017-03-20 14:30:00.000000', '2017-03-19 18:30:00.000000', '1500.00', '2017-03-06 19:06:42.823000', 1, 6),
+(215, '2017-03-28 14:30:00.000000', '2017-03-27 18:30:00.000000', '1500.00', '2017-03-07 18:18:19.000000', 1, 1),
+(216, '2017-03-28 14:30:00.000000', '2017-03-27 18:30:00.000000', '1500.00', '2017-03-07 18:18:28.000000', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -474,12 +510,12 @@ INSERT INTO `bookings_booking` (`id`, `fromdate`, `todate`, `total`, `date_time`
 -- Table structure for table `bookings_ordervenue`
 --
 
-CREATE TABLE IF NOT EXISTS `bookings_ordervenue` (
-`id` int(11) NOT NULL,
-  `object_id` int(10) unsigned NOT NULL,
+CREATE TABLE `bookings_ordervenue` (
+  `id` int(11) NOT NULL,
+  `object_id` int(10) UNSIGNED NOT NULL,
   `booking_id_id` int(11) NOT NULL,
   `venue_type_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookings_ordervenue`
@@ -683,7 +719,9 @@ INSERT INTO `bookings_ordervenue` (`id`, `object_id`, `booking_id_id`, `venue_ty
 (195, 1, 211, 13),
 (196, 1, 212, 13),
 (197, 1, 213, 13),
-(198, 1, 214, 13);
+(198, 1, 214, 13),
+(199, 1, 215, 13),
+(200, 1, 216, 13);
 
 -- --------------------------------------------------------
 
@@ -691,8 +729,8 @@ INSERT INTO `bookings_ordervenue` (`id`, `object_id`, `booking_id_id`, `venue_ty
 -- Table structure for table `bookings_payment`
 --
 
-CREATE TABLE IF NOT EXISTS `bookings_payment` (
-`id` int(11) NOT NULL,
+CREATE TABLE `bookings_payment` (
+  `id` int(11) NOT NULL,
   `invoice_number` varchar(50) NOT NULL,
   `amount` decimal(8,2) NOT NULL,
   `date_time` datetime(6) NOT NULL,
@@ -700,7 +738,7 @@ CREATE TABLE IF NOT EXISTS `bookings_payment` (
   `payment_method_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `tansaction_number` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookings_payment`
@@ -913,7 +951,9 @@ INSERT INTO `bookings_payment` (`id`, `invoice_number`, `amount`, `date_time`, `
 (204, '00000204', '1500.00', '2017-03-06 19:04:22.052000', 211, 3, 6, 'rEJvjfWvQ8'),
 (205, '00000205', '1500.00', '2017-03-06 19:06:41.662000', 212, 3, 6, 'A3zK92X5X6'),
 (206, '00000206', '1500.00', '2017-03-06 19:06:42.541000', 213, 3, 6, 'rnc6ZDp3Kl'),
-(207, '00000207', '1500.00', '2017-03-06 19:06:42.850000', 214, 3, 6, 'Ng7CubKBSh');
+(207, '00000207', '1500.00', '2017-03-06 19:06:42.850000', 214, 3, 6, 'Ng7CubKBSh'),
+(208, '00000208', '1500.00', '2017-03-07 18:18:19.000000', 215, 3, 1, 'HZFqKab19r'),
+(209, '00000209', '1500.00', '2017-03-07 18:18:28.000000', 216, 3, 1, 'ijcFLfCXiK');
 
 -- --------------------------------------------------------
 
@@ -921,10 +961,10 @@ INSERT INTO `bookings_payment` (`id`, `invoice_number`, `amount`, `date_time`, `
 -- Table structure for table `bookings_payment_method`
 --
 
-CREATE TABLE IF NOT EXISTS `bookings_payment_method` (
-`id` int(11) NOT NULL,
+CREATE TABLE `bookings_payment_method` (
+  `id` int(11) NOT NULL,
   `payment_method` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookings_payment_method`
@@ -941,10 +981,10 @@ INSERT INTO `bookings_payment_method` (`id`, `payment_method`) VALUES
 -- Table structure for table `bookings_status`
 --
 
-CREATE TABLE IF NOT EXISTS `bookings_status` (
-`id` int(11) NOT NULL,
+CREATE TABLE `bookings_status` (
+  `id` int(11) NOT NULL,
   `status_name` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookings_status`
@@ -959,13 +999,13 @@ INSERT INTO `bookings_status` (`id`, `status_name`) VALUES
 -- Table structure for table `club_club`
 --
 
-CREATE TABLE IF NOT EXISTS `club_club` (
-`id` int(11) NOT NULL,
+CREATE TABLE `club_club` (
+  `id` int(11) NOT NULL,
   `club_name` varchar(50) NOT NULL,
   `club_slug` varchar(50) NOT NULL,
   `description` longtext NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `club_club`
@@ -1014,12 +1054,12 @@ INSERT INTO `club_club` (`id`, `club_name`, `club_slug`, `description`, `user_id
 -- Table structure for table `club_entry_rate`
 --
 
-CREATE TABLE IF NOT EXISTS `club_entry_rate` (
-`id` int(11) NOT NULL,
+CREATE TABLE `club_entry_rate` (
+  `id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `club_name_id` int(11) NOT NULL,
   `entry_type_r_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `club_entry_rate`
@@ -1047,10 +1087,10 @@ INSERT INTO `club_entry_rate` (`id`, `price`, `club_name_id`, `entry_type_r_id`)
 -- Table structure for table `club_entry_type`
 --
 
-CREATE TABLE IF NOT EXISTS `club_entry_type` (
-`id` int(11) NOT NULL,
+CREATE TABLE `club_entry_type` (
+  `id` int(11) NOT NULL,
   `type_entry` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `club_entry_type`
@@ -1069,11 +1109,11 @@ INSERT INTO `club_entry_type` (`id`, `type_entry`) VALUES
 -- Table structure for table `club_service`
 --
 
-CREATE TABLE IF NOT EXISTS `club_service` (
-`id` int(11) NOT NULL,
+CREATE TABLE `club_service` (
+  `id` int(11) NOT NULL,
   `service_name` varchar(50) NOT NULL,
   `club_name_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `club_service`
@@ -1100,16 +1140,16 @@ INSERT INTO `club_service` (`id`, `service_name`, `club_name_id`) VALUES
 -- Table structure for table `django_admin_log`
 --
 
-CREATE TABLE IF NOT EXISTS `django_admin_log` (
-`id` int(11) NOT NULL,
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL,
   `action_time` datetime(6) NOT NULL,
   `object_id` longtext,
   `object_repr` varchar(200) NOT NULL,
-  `action_flag` smallint(5) unsigned NOT NULL,
+  `action_flag` smallint(5) UNSIGNED NOT NULL,
   `change_message` longtext NOT NULL,
   `content_type_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `django_admin_log`
@@ -1173,11 +1213,11 @@ INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`,
 -- Table structure for table `django_content_type`
 --
 
-CREATE TABLE IF NOT EXISTS `django_content_type` (
-`id` int(11) NOT NULL,
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL,
   `app_label` varchar(100) NOT NULL,
   `model` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `django_content_type`
@@ -1200,6 +1240,10 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (14, 'club', 'entry_type'),
 (16, 'club', 'service'),
 (5, 'contenttypes', 'contenttype'),
+(23, 'event_management', 'category'),
+(22, 'event_management', 'emt_c'),
+(25, 'event_management', 'package'),
+(24, 'event_management', 'services'),
 (6, 'sessions', 'session'),
 (12, 'venues', 'address'),
 (9, 'venues', 'city'),
@@ -1212,12 +1256,12 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 -- Table structure for table `django_migrations`
 --
 
-CREATE TABLE IF NOT EXISTS `django_migrations` (
-`id` int(11) NOT NULL,
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL,
   `app` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `django_migrations`
@@ -1249,7 +1293,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (23, 'venues', '0005_auto_20170124_1604', '2017-02-25 12:07:04.351000'),
 (24, 'bookings', '0002_payment_tansaction_number', '2017-02-25 16:03:28.958000'),
 (25, 'club', '0002_auto_20170225_2253', '2017-02-25 17:23:38.176000'),
-(26, 'club', '0003_auto_20170225_2256', '2017-02-25 17:26:27.063000');
+(26, 'club', '0003_auto_20170225_2256', '2017-02-25 17:26:27.063000'),
+(27, 'event_management', '0001_initial', '2017-03-28 09:59:13.000000');
 
 -- --------------------------------------------------------
 
@@ -1257,7 +1302,7 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 -- Table structure for table `django_session`
 --
 
-CREATE TABLE IF NOT EXISTS `django_session` (
+CREATE TABLE `django_session` (
   `session_key` varchar(40) NOT NULL,
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL
@@ -1268,7 +1313,9 @@ CREATE TABLE IF NOT EXISTS `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('3qiivd7am0f33xnv5zzxgnl89smaqr66', 'NjM5MzVhZDc4YjFlOTdkNWNiODFkNWU2NzI4NjkxNzBjZDc1MTg4Yjp7fQ==', '2017-03-22 05:20:33.000000'),
 ('bh4w86kglzle8b8a4i8kdqmjmteorak6', 'NjI0MDg3YzMzMDRmODg3YTBlZjFmMjYwMjMxMzMyMGFhYzNjZGZmZTp7Il9hdXRoX3VzZXJfaGFzaCI6IjE1ODQ1Mjk5YTViMzgzMmUwMzlmOWQ1MzNiN2M2OTI4ZjViMmU5ZDUiLCJ2ZW51ZSI6ImNsdWIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMCJ9', '2017-03-20 18:42:41.205000'),
+('d82ardev6291kmchxn5lgxz2y573s6ri', 'ZGYxOTg0NjVlYzRiZGZiZTE3YWE1ZWE2ODZmMTFmN2JmYTY1MjVlYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImUyYjZiNmQ0NzNjNjNhN2NhYmRhNGYxMTg0NzU1NWY5NmFhOWJhMTUiLCJ2ZW51ZSI6ImNsdWIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2017-04-11 09:42:50.000000'),
 ('dghotje85yaqvrbp3cmg3i6lo1cxo6dy', 'YjM3NzRhOGMyZmE0MzkxZGQ0MDc5Y2Q1YjU1ZGRiOTkzY2FhNDA4MTp7InZlbnVlIjoiY2x1YiJ9', '2017-03-20 10:32:48.121000'),
 ('gdv6dg1d82ma89ily3clw5i6qwti120f', 'ZGYxOTg0NjVlYzRiZGZiZTE3YWE1ZWE2ODZmMTFmN2JmYTY1MjVlYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImUyYjZiNmQ0NzNjNjNhN2NhYmRhNGYxMTg0NzU1NWY5NmFhOWJhMTUiLCJ2ZW51ZSI6ImNsdWIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2017-03-13 16:44:04.270000'),
 ('k9i43kgjeoo52m4ne1dzl8748p3u0otq', 'YjdkNDZhOWFiOWE4YWRjNzIyN2NmZDA4YTc1ZGYxYmRmMmI3NzQ3Yjp7Il9hdXRoX3VzZXJfaGFzaCI6ImIyMTZlNGU2ZTUyZWE3NGYyNTcyZTBjMzkzNmY4M2ZlNGVmZTQwN2EiLCJ2ZW51ZSI6ImNsdWIiLCJfYXV0aF91c2VyX2lkIjoiNiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=', '2017-03-20 19:02:37.262000'),
@@ -1277,17 +1324,70 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `event_management_category`
+--
+
+CREATE TABLE `event_management_category` (
+  `id` int(11) NOT NULL,
+  `category_name` varchar(50) NOT NULL,
+  `category_slug` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_management_emt_c`
+--
+
+CREATE TABLE `event_management_emt_c` (
+  `id` int(11) NOT NULL,
+  `comp_name` varchar(50) NOT NULL,
+  `comp_slug` varchar(50) NOT NULL,
+  `description` longtext NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_management_package`
+--
+
+CREATE TABLE `event_management_package` (
+  `id` int(11) NOT NULL,
+  `package_type` varchar(10) NOT NULL,
+  `package_cost` varchar(20) NOT NULL,
+  `package_services` varchar(100) NOT NULL,
+  `package_category_id` int(11) NOT NULL,
+  `package_emt_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_management_services`
+--
+
+CREATE TABLE `event_management_services` (
+  `id` int(11) NOT NULL,
+  `service_name` varchar(50) NOT NULL,
+  `service_slug` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `venues_address`
 --
 
-CREATE TABLE IF NOT EXISTS `venues_address` (
-`id` int(11) NOT NULL,
+CREATE TABLE `venues_address` (
+  `id` int(11) NOT NULL,
   `address_line` varchar(150) NOT NULL,
   `zip_code` varchar(50) NOT NULL,
   `lon` varchar(50) NOT NULL,
   `let` varchar(50) NOT NULL,
   `venue_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venues_address`
@@ -1314,13 +1414,13 @@ INSERT INTO `venues_address` (`id`, `address_line`, `zip_code`, `lon`, `let`, `v
 -- Table structure for table `venues_city`
 --
 
-CREATE TABLE IF NOT EXISTS `venues_city` (
-`id` int(11) NOT NULL,
+CREATE TABLE `venues_city` (
+  `id` int(11) NOT NULL,
   `city_name` varchar(50) NOT NULL,
   `total_locality` int(11) NOT NULL,
   `total_venues` int(11) NOT NULL,
   `city_slug` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venues_city`
@@ -1336,13 +1436,13 @@ INSERT INTO `venues_city` (`id`, `city_name`, `total_locality`, `total_venues`, 
 -- Table structure for table `venues_locality`
 --
 
-CREATE TABLE IF NOT EXISTS `venues_locality` (
-`id` int(11) NOT NULL,
+CREATE TABLE `venues_locality` (
+  `id` int(11) NOT NULL,
   `locality_name` varchar(50) NOT NULL,
   `total_venues` int(11) NOT NULL,
   `city_name_id` int(11) NOT NULL,
   `locality_slug` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venues_locality`
@@ -1360,14 +1460,14 @@ INSERT INTO `venues_locality` (`id`, `locality_name`, `total_venues`, `city_name
 -- Table structure for table `venues_venues`
 --
 
-CREATE TABLE IF NOT EXISTS `venues_venues` (
-`id` int(11) NOT NULL,
+CREATE TABLE `venues_venues` (
+  `id` int(11) NOT NULL,
   `venue_name` varchar(50) NOT NULL,
   `venue_city_id` int(11) NOT NULL,
   `venue_locality_id` int(11) NOT NULL,
   `content_type_id` int(11) NOT NULL,
-  `object_id` int(10) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+  `object_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venues_venues`
@@ -1418,151 +1518,215 @@ INSERT INTO `venues_venues` (`id`, `venue_name`, `venue_city_id`, `venue_localit
 -- Indexes for table `accounts_corporateuser`
 --
 ALTER TABLE `accounts_corporateuser`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `accounts_normaluser`
 --
 ALTER TABLE `accounts_normaluser`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `auth_group`
 --
 ALTER TABLE `auth_group`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `name` (`name`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `auth_group_permissions`
 --
 ALTER TABLE `auth_group_permissions`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `auth_group_permissions_group_id_0cd325b0_uniq` (`group_id`,`permission_id`), ADD KEY `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` (`permission_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_group_permissions_group_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  ADD KEY `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` (`permission_id`);
 
 --
 -- Indexes for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `auth_permission_content_type_id_01ab375a_uniq` (`content_type_id`,`codename`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_permission_content_type_id_01ab375a_uniq` (`content_type_id`,`codename`);
 
 --
 -- Indexes for table `auth_user`
 --
 ALTER TABLE `auth_user`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `auth_user_groups`
 --
 ALTER TABLE `auth_user_groups`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `auth_user_groups_user_id_94350c0c_uniq` (`user_id`,`group_id`), ADD KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_user_groups_user_id_94350c0c_uniq` (`user_id`,`group_id`),
+  ADD KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`);
 
 --
 -- Indexes for table `auth_user_user_permissions`
 --
 ALTER TABLE `auth_user_user_permissions`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `auth_user_user_permissions_user_id_14a6b632_uniq` (`user_id`,`permission_id`), ADD KEY `auth_user_user_perm_permission_id_1fbb5f2c_fk_auth_permission_id` (`permission_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_user_user_permissions_user_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  ADD KEY `auth_user_user_perm_permission_id_1fbb5f2c_fk_auth_permission_id` (`permission_id`);
 
 --
 -- Indexes for table `bookings_booking`
 --
 ALTER TABLE `bookings_booking`
- ADD PRIMARY KEY (`id`), ADD KEY `bookings_booking_69b23770` (`status_id_id`), ADD KEY `bookings_booking_e8701ad4` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookings_booking_69b23770` (`status_id_id`),
+  ADD KEY `bookings_booking_e8701ad4` (`user_id`);
 
 --
 -- Indexes for table `bookings_ordervenue`
 --
 ALTER TABLE `bookings_ordervenue`
- ADD PRIMARY KEY (`id`), ADD KEY `bookings_ordervenu_booking_id_id_c0e818a3_fk_bookings_booking_id` (`booking_id_id`), ADD KEY `bookings_orderv_venue_type_id_f03f9f12_fk_django_content_type_id` (`venue_type_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookings_ordervenu_booking_id_id_c0e818a3_fk_bookings_booking_id` (`booking_id_id`),
+  ADD KEY `bookings_orderv_venue_type_id_f03f9f12_fk_django_content_type_id` (`venue_type_id`);
 
 --
 -- Indexes for table `bookings_payment`
 --
 ALTER TABLE `bookings_payment`
- ADD PRIMARY KEY (`id`), ADD KEY `bookings_payment_booking_id_id_4b2e5407_fk_bookings_booking_id` (`booking_id_id`), ADD KEY `bookings_payment_f4292d53` (`payment_method_id`), ADD KEY `bookings_payment_e8701ad4` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookings_payment_booking_id_id_4b2e5407_fk_bookings_booking_id` (`booking_id_id`),
+  ADD KEY `bookings_payment_f4292d53` (`payment_method_id`),
+  ADD KEY `bookings_payment_e8701ad4` (`user_id`);
 
 --
 -- Indexes for table `bookings_payment_method`
 --
 ALTER TABLE `bookings_payment_method`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `bookings_status`
 --
 ALTER TABLE `bookings_status`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `club_club`
 --
 ALTER TABLE `club_club`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `club_slug` (`club_slug`), ADD KEY `club_club_user_id_bfe043d8_fk_auth_user_id` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `club_slug` (`club_slug`),
+  ADD KEY `club_club_user_id_bfe043d8_fk_auth_user_id` (`user_id`);
 
 --
 -- Indexes for table `club_entry_rate`
 --
 ALTER TABLE `club_entry_rate`
- ADD PRIMARY KEY (`id`), ADD KEY `club_entry_rate_club_name_id_a6da0daf_fk_club_club_id` (`club_name_id`), ADD KEY `club_entry_rate_059e7bc0` (`entry_type_r_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `club_entry_rate_club_name_id_a6da0daf_fk_club_club_id` (`club_name_id`),
+  ADD KEY `club_entry_rate_059e7bc0` (`entry_type_r_id`);
 
 --
 -- Indexes for table `club_entry_type`
 --
 ALTER TABLE `club_entry_type`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `club_service`
 --
 ALTER TABLE `club_service`
- ADD PRIMARY KEY (`id`), ADD KEY `club_service_club_name_id_b6358f20_fk_club_club_id` (`club_name_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `club_service_club_name_id_b6358f20_fk_club_club_id` (`club_name_id`);
 
 --
 -- Indexes for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
- ADD PRIMARY KEY (`id`), ADD KEY `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` (`content_type_id`), ADD KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` (`content_type_id`),
+  ADD KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`);
 
 --
 -- Indexes for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `django_content_type_app_label_76bd3d3b_uniq` (`app_label`,`model`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `django_content_type_app_label_76bd3d3b_uniq` (`app_label`,`model`);
 
 --
 -- Indexes for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `django_session`
 --
 ALTER TABLE `django_session`
- ADD PRIMARY KEY (`session_key`), ADD KEY `django_session_de54fa62` (`expire_date`);
+  ADD PRIMARY KEY (`session_key`),
+  ADD KEY `django_session_de54fa62` (`expire_date`);
+
+--
+-- Indexes for table `event_management_category`
+--
+ALTER TABLE `event_management_category`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `category_slug` (`category_slug`);
+
+--
+-- Indexes for table `event_management_emt_c`
+--
+ALTER TABLE `event_management_emt_c`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `comp_slug` (`comp_slug`),
+  ADD KEY `event_management_emt_c_user_id_fc8ee3a4_fk_auth_user_id` (`user_id`);
+
+--
+-- Indexes for table `event_management_package`
+--
+ALTER TABLE `event_management_package`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `eve_package_category_id_14086966_fk_event_management_category_id` (`package_category_id`),
+  ADD KEY `event_manag_package_emt_id_8105f359_fk_event_management_emt_c_id` (`package_emt_id`);
+
+--
+-- Indexes for table `event_management_services`
+--
+ALTER TABLE `event_management_services`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `service_slug` (`service_slug`);
 
 --
 -- Indexes for table `venues_address`
 --
 ALTER TABLE `venues_address`
- ADD PRIMARY KEY (`id`), ADD KEY `venues_address_f3a4803c` (`venue_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `venues_address_f3a4803c` (`venue_id`);
 
 --
 -- Indexes for table `venues_city`
 --
 ALTER TABLE `venues_city`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `city_slug` (`city_slug`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `city_slug` (`city_slug`);
 
 --
 -- Indexes for table `venues_locality`
 --
 ALTER TABLE `venues_locality`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `locality_slug` (`locality_slug`), ADD KEY `venues_locality_city_name_id_e2e373c1_fk_venues_city_id` (`city_name_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `locality_slug` (`locality_slug`),
+  ADD KEY `venues_locality_city_name_id_e2e373c1_fk_venues_city_id` (`city_name_id`);
 
 --
 -- Indexes for table `venues_venues`
 --
 ALTER TABLE `venues_venues`
- ADD PRIMARY KEY (`id`), ADD KEY `venues_venues_417f1b1c` (`content_type_id`), ADD KEY `venues_venues_venue_city_id_c04d9e65_fk_venues_city_id` (`venue_city_id`), ADD KEY `venues_venues_venue_locality_id_67a420c8_fk_venues_locality_id` (`venue_locality_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `venues_venues_417f1b1c` (`content_type_id`),
+  ADD KEY `venues_venues_venue_city_id_c04d9e65_fk_venues_city_id` (`venue_city_id`),
+  ADD KEY `venues_venues_venue_locality_id_67a420c8_fk_venues_locality_id` (`venue_locality_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1572,122 +1736,142 @@ ALTER TABLE `venues_venues`
 -- AUTO_INCREMENT for table `accounts_corporateuser`
 --
 ALTER TABLE `accounts_corporateuser`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `accounts_normaluser`
 --
 ALTER TABLE `accounts_normaluser`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `auth_group`
 --
 ALTER TABLE `auth_group`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `auth_group_permissions`
 --
 ALTER TABLE `auth_group_permissions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `auth_user_groups`
 --
 ALTER TABLE `auth_user_groups`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `auth_user_user_permissions`
 --
 ALTER TABLE `auth_user_user_permissions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `bookings_booking`
 --
 ALTER TABLE `bookings_booking`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=215;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 --
 -- AUTO_INCREMENT for table `bookings_ordervenue`
 --
 ALTER TABLE `bookings_ordervenue`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=199;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 --
 -- AUTO_INCREMENT for table `bookings_payment`
 --
 ALTER TABLE `bookings_payment`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 --
 -- AUTO_INCREMENT for table `bookings_payment_method`
 --
 ALTER TABLE `bookings_payment_method`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `bookings_status`
 --
 ALTER TABLE `bookings_status`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `club_club`
 --
 ALTER TABLE `club_club`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `club_entry_rate`
 --
 ALTER TABLE `club_entry_rate`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `club_entry_type`
 --
 ALTER TABLE `club_entry_type`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `club_service`
 --
 ALTER TABLE `club_service`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `event_management_category`
+--
+ALTER TABLE `event_management_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `event_management_emt_c`
+--
+ALTER TABLE `event_management_emt_c`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `event_management_package`
+--
+ALTER TABLE `event_management_package`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `event_management_services`
+--
+ALTER TABLE `event_management_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `venues_address`
 --
 ALTER TABLE `venues_address`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `venues_city`
 --
 ALTER TABLE `venues_city`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `venues_locality`
 --
 ALTER TABLE `venues_locality`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `venues_venues`
 --
 ALTER TABLE `venues_venues`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- Constraints for dumped tables
 --
@@ -1696,108 +1880,121 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 -- Constraints for table `accounts_corporateuser`
 --
 ALTER TABLE `accounts_corporateuser`
-ADD CONSTRAINT `accounts_corporateuser_user_id_24534a7c_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `accounts_corporateuser_user_id_24534a7c_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `accounts_normaluser`
 --
 ALTER TABLE `accounts_normaluser`
-ADD CONSTRAINT `accounts_normaluser_user_id_af253e45_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `accounts_normaluser_user_id_af253e45_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `auth_group_permissions`
 --
 ALTER TABLE `auth_group_permissions`
-ADD CONSTRAINT `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
-ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
+  ADD CONSTRAINT `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
 
 --
 -- Constraints for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-ADD CONSTRAINT `auth_permissi_content_type_id_2f476e4b_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
+  ADD CONSTRAINT `auth_permissi_content_type_id_2f476e4b_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
 
 --
 -- Constraints for table `auth_user_groups`
 --
 ALTER TABLE `auth_user_groups`
-ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
-ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `auth_user_user_permissions`
 --
 ALTER TABLE `auth_user_user_permissions`
-ADD CONSTRAINT `auth_user_user_perm_permission_id_1fbb5f2c_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
-ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `auth_user_user_perm_permission_id_1fbb5f2c_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `bookings_booking`
 --
 ALTER TABLE `bookings_booking`
-ADD CONSTRAINT `bookings_booking_status_id_id_d89f407d_fk_bookings_status_id` FOREIGN KEY (`status_id_id`) REFERENCES `bookings_status` (`id`),
-ADD CONSTRAINT `bookings_booking_user_id_834dfc23_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `bookings_booking_status_id_id_d89f407d_fk_bookings_status_id` FOREIGN KEY (`status_id_id`) REFERENCES `bookings_status` (`id`),
+  ADD CONSTRAINT `bookings_booking_user_id_834dfc23_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `bookings_ordervenue`
 --
 ALTER TABLE `bookings_ordervenue`
-ADD CONSTRAINT `bookings_orderv_venue_type_id_f03f9f12_fk_django_content_type_id` FOREIGN KEY (`venue_type_id`) REFERENCES `django_content_type` (`id`),
-ADD CONSTRAINT `bookings_ordervenu_booking_id_id_c0e818a3_fk_bookings_booking_id` FOREIGN KEY (`booking_id_id`) REFERENCES `bookings_booking` (`id`);
+  ADD CONSTRAINT `bookings_orderv_venue_type_id_f03f9f12_fk_django_content_type_id` FOREIGN KEY (`venue_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `bookings_ordervenu_booking_id_id_c0e818a3_fk_bookings_booking_id` FOREIGN KEY (`booking_id_id`) REFERENCES `bookings_booking` (`id`);
 
 --
 -- Constraints for table `bookings_payment`
 --
 ALTER TABLE `bookings_payment`
-ADD CONSTRAINT `booking_payment_method_id_a2954e68_fk_bookings_payment_method_id` FOREIGN KEY (`payment_method_id`) REFERENCES `bookings_payment_method` (`id`),
-ADD CONSTRAINT `bookings_payment_booking_id_id_4b2e5407_fk_bookings_booking_id` FOREIGN KEY (`booking_id_id`) REFERENCES `bookings_booking` (`id`),
-ADD CONSTRAINT `bookings_payment_user_id_fe850ec5_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `booking_payment_method_id_a2954e68_fk_bookings_payment_method_id` FOREIGN KEY (`payment_method_id`) REFERENCES `bookings_payment_method` (`id`),
+  ADD CONSTRAINT `bookings_payment_booking_id_id_4b2e5407_fk_bookings_booking_id` FOREIGN KEY (`booking_id_id`) REFERENCES `bookings_booking` (`id`),
+  ADD CONSTRAINT `bookings_payment_user_id_fe850ec5_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `club_club`
 --
 ALTER TABLE `club_club`
-ADD CONSTRAINT `club_club_user_id_bfe043d8_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `club_club_user_id_bfe043d8_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `club_entry_rate`
 --
 ALTER TABLE `club_entry_rate`
-ADD CONSTRAINT `club_entry_rate_club_name_id_a6da0daf_fk_club_club_id` FOREIGN KEY (`club_name_id`) REFERENCES `club_club` (`id`),
-ADD CONSTRAINT `club_entry_rate_entry_type_r_id_197cef10_fk_club_entry_type_id` FOREIGN KEY (`entry_type_r_id`) REFERENCES `club_entry_type` (`id`);
+  ADD CONSTRAINT `club_entry_rate_club_name_id_a6da0daf_fk_club_club_id` FOREIGN KEY (`club_name_id`) REFERENCES `club_club` (`id`),
+  ADD CONSTRAINT `club_entry_rate_entry_type_r_id_197cef10_fk_club_entry_type_id` FOREIGN KEY (`entry_type_r_id`) REFERENCES `club_entry_type` (`id`);
 
 --
 -- Constraints for table `club_service`
 --
 ALTER TABLE `club_service`
-ADD CONSTRAINT `club_service_club_name_id_b6358f20_fk_club_club_id` FOREIGN KEY (`club_name_id`) REFERENCES `club_club` (`id`);
+  ADD CONSTRAINT `club_service_club_name_id_b6358f20_fk_club_club_id` FOREIGN KEY (`club_name_id`) REFERENCES `club_club` (`id`);
 
 --
 -- Constraints for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-ADD CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
-ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+  ADD CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `event_management_emt_c`
+--
+ALTER TABLE `event_management_emt_c`
+  ADD CONSTRAINT `event_management_emt_c_user_id_fc8ee3a4_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `event_management_package`
+--
+ALTER TABLE `event_management_package`
+  ADD CONSTRAINT `eve_package_category_id_14086966_fk_event_management_category_id` FOREIGN KEY (`package_category_id`) REFERENCES `event_management_category` (`id`),
+  ADD CONSTRAINT `event_manag_package_emt_id_8105f359_fk_event_management_emt_c_id` FOREIGN KEY (`package_emt_id`) REFERENCES `event_management_emt_c` (`id`);
 
 --
 -- Constraints for table `venues_address`
 --
 ALTER TABLE `venues_address`
-ADD CONSTRAINT `venues_address_venue_id_80b0ba4f_fk_venues_venues_id` FOREIGN KEY (`venue_id`) REFERENCES `venues_venues` (`id`);
+  ADD CONSTRAINT `venues_address_venue_id_80b0ba4f_fk_venues_venues_id` FOREIGN KEY (`venue_id`) REFERENCES `venues_venues` (`id`);
 
 --
 -- Constraints for table `venues_locality`
 --
 ALTER TABLE `venues_locality`
-ADD CONSTRAINT `venues_locality_city_name_id_e2e373c1_fk_venues_city_id` FOREIGN KEY (`city_name_id`) REFERENCES `venues_city` (`id`);
+  ADD CONSTRAINT `venues_locality_city_name_id_e2e373c1_fk_venues_city_id` FOREIGN KEY (`city_name_id`) REFERENCES `venues_city` (`id`);
 
 --
 -- Constraints for table `venues_venues`
 --
 ALTER TABLE `venues_venues`
-ADD CONSTRAINT `venues_venues_content_type_id_a7efc30f_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
-ADD CONSTRAINT `venues_venues_venue_city_id_c04d9e65_fk_venues_city_id` FOREIGN KEY (`venue_city_id`) REFERENCES `venues_city` (`id`),
-ADD CONSTRAINT `venues_venues_venue_locality_id_67a420c8_fk_venues_locality_id` FOREIGN KEY (`venue_locality_id`) REFERENCES `venues_locality` (`id`);
+  ADD CONSTRAINT `venues_venues_content_type_id_a7efc30f_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `venues_venues_venue_city_id_c04d9e65_fk_venues_city_id` FOREIGN KEY (`venue_city_id`) REFERENCES `venues_city` (`id`),
+  ADD CONSTRAINT `venues_venues_venue_locality_id_67a420c8_fk_venues_locality_id` FOREIGN KEY (`venue_locality_id`) REFERENCES `venues_locality` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
