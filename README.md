@@ -6,7 +6,9 @@ SHIVAM SINHA,
 
 SHUBHAM JAROLI,
 
-AKANKSHA GOEL
+TANMAY GADPAYLE,
+
+YATHARTH SAXENA
 
 1. clone this repo using git clone https://github.com/shivam04/Event-Management
 
